@@ -5,6 +5,22 @@ namespace ICanBoogie\Accessor;
 trait SerializableTrait
 {
 	/**
+	 * @inheritdoc
+	 */
+	public function __sleep()
+	{
+		return $this->accessor_sleep();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function __wakeup()
+	{
+		$this->accessor_wakeup();
+	}
+
+	/**
 	 * Whether an object has a method.
 	 *
 	 * @param string $method
@@ -24,7 +40,7 @@ trait SerializableTrait
 	 *
 	 * @return array
 	 */
-	public function __sleep()
+	private function accessor_sleep()
 	{
 		$keys = array_keys(get_object_vars($this));
 
@@ -53,7 +69,7 @@ trait SerializableTrait
 	 * Unsets null properties for which a lazy getter is defined so that it is called when
 	 * the property is accessed.
 	 */
-	public function __wakeup()
+	public function accessor_wakeup()
 	{
 		$vars = get_object_vars($this);
 
