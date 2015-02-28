@@ -16,9 +16,9 @@ use ICanBoogie\PropertyNotReadable;
 use ICanBoogie\PropertyNotWritable;
 
 /**
- * Implements an accessor pattern.
+ * Implements ICanBoogie's accessor pattern.
  *
- * @package ICanBoogie\Object
+ * @package ICanBoogie\Accessor
  */
 trait AccessorTrait
 {
@@ -154,8 +154,8 @@ trait AccessorTrait
 	 * @param string $property
 	 *
 	 * @throws PropertyNotDefined when the property is not defined.
-	 * @throws PropertyNotReadable when the property is not accessible or is write-only (the
-	 * property is not defined and only a setter is available).
+	 * @throws PropertyNotReadable when the property is not accessible or is write-only
+	 * (the property is not defined and only a setter is available).
 	 */
 	private function assert_property_is_readable($property)
 	{
@@ -197,7 +197,8 @@ trait AccessorTrait
 	 *
 	 * @param string $property
 	 *
-	 * @throws PropertyNotWritable
+	 * @throws PropertyNotWritable when the property doesn't exists, has no lazy getter and is
+	 * not public; or when only a getter is implemented.
 	 */
 	private function assert_property_is_writable($property)
 	{

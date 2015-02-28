@@ -11,6 +11,11 @@
 
 namespace ICanBoogie\Accessor;
 
+/**
+ * Formats accessor method using CamelCase.
+ *
+ * @package ICanBoogie\Accessor
+ */
 trait FormatAsCamel
 {
 	/**

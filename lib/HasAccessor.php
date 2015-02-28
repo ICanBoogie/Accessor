@@ -41,6 +41,10 @@ interface HasAccessor
 	 * @param string $property
 	 *
 	 * @return mixed
+	 *
+	 * @throws \ICanBoogie\PropertyNotDefined when the property is not defined.
+	 * @throws \ICanBoogie\PropertyNotReadable when the property is not accessible or is write-only
+	 * (the property is not defined and only a setter is available).
 	 */
 	public function __get($property);
 
@@ -49,6 +53,9 @@ interface HasAccessor
 	 *
 	 * @param string $property
 	 * @param mixed $value
+	 *
+	 * @throws \ICanBoogie\PropertyNotWritable when the property doesn't exists, has no lazy
+	 * getter and is not public; or when only a getter is implemented.
 	 */
 	public function __set($property, $value);
 

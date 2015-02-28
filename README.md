@@ -548,7 +548,7 @@ The package is [available on GitHub](https://github.com/ICanBoogie/Accessor), it
 ## Documentation
 
 The package is documented as part of the [ICanBoogie][] framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later by cleaned with the `make clean` command.
+[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `build/docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later be cleaned with the `make clean` command.
 
 
 

@@ -11,6 +11,11 @@
 
 namespace ICanBoogie\Accessor;
 
+/**
+ * Formats accessor method using snake case.
+ *
+ * @package ICanBoogie\Accessor
+ */
 trait FormatAsSnake
 {
 	/**
