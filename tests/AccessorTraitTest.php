@@ -13,6 +13,7 @@ namespace ICanBoogie\Accessor;
 
 use ICanBoogie\Accessor\AccessorTraitTest\DefaultProperty;
 use ICanBoogie\Accessor\AccessorTraitTest\HasPropertyFixture;
+use ICanBoogie\Accessor\AccessorTraitTest\HasPropertyFixtureCamel;
 use ICanBoogie\Accessor\AccessorTraitTest\LazyProperty;
 use ICanBoogie\Accessor\AccessorTraitTest\LazySetProperty;
 use ICanBoogie\Accessor\AccessorTraitTest\PropertyList;
@@ -254,6 +255,24 @@ class AccessorTraitTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($a->has_property('lazy_readonly'));
 		$this->assertTrue($a->has_property('writeonly'));
 		$this->assertTrue($a->has_property('lazy_writeonly'));
+
+		$a->dynamic = true;
+		$this->assertTrue($a->has_property('dynamic'));
+	}
+
+	public function test_should_have_properties_as_camel()
+	{
+		$a = new HasPropertyFixtureCamel;
+		$this->assertTrue($a->has_property('public'));
+		$this->assertTrue($a->has_property('protected'));
+		$this->assertTrue($a->has_property('private'));
+		$this->assertTrue($a->has_property('unsetPublic'));
+		$this->assertTrue($a->has_property('unsetProtected'));
+		$this->assertTrue($a->has_property('unsetPrivate'));
+		$this->assertTrue($a->has_property('readonly'));
+		$this->assertTrue($a->has_property('lazyReadonly'));
+		$this->assertTrue($a->has_property('writeonly'));
+		$this->assertTrue($a->has_property('lazyWriteonly'));
 
 		$a->dynamic = true;
 		$this->assertTrue($a->has_property('dynamic'));

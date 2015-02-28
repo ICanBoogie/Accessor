@@ -22,6 +22,8 @@ use ICanBoogie\PropertyNotWritable;
  */
 trait AccessorTrait
 {
+	use FormatAsSnake;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -50,10 +52,10 @@ trait AccessorTrait
 	public function has_property($property)
 	{
 		return property_exists($this, $property)
-		|| $this->has_method('get_' . $property)
-		|| $this->has_method('lazy_get_' . $property)
-		|| $this->has_method('set_' . $property)
-		|| $this->has_method('lazy_set_' . $property);
+		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER))
+		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY))
+		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER))
+		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER, HasAccessor::ACCESSOR_IS_LAZY));
 	}
 
 	/**
@@ -88,14 +90,14 @@ trait AccessorTrait
 	 */
 	private function accessor_get($property)
 	{
-		$method = 'get_' . $property;
+		$method = static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER);
 
 		if ($this->has_method($method))
 		{
 			return $this->$method();
 		}
 
-		$method = 'lazy_get_' . $property;
+		$method = static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY);
 
 		if ($this->has_method($method))
 		{
@@ -123,7 +125,7 @@ trait AccessorTrait
 	 */
 	private function accessor_set($property, $value)
 	{
-		$method = 'set_' . $property;
+		$method = static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER);
 
 		if ($this->has_method($method))
 		{
@@ -132,7 +134,7 @@ trait AccessorTrait
 			return;
 		}
 
-		$method = 'lazy_set_' . $property;
+		$method = static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER, HasAccessor::ACCESSOR_IS_LAZY);
 
 		if ($this->has_method($method))
 		{
@@ -175,7 +177,7 @@ trait AccessorTrait
 			#
 		}
 
-		if ($this->has_method('set_' . $property))
+		if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER)))
 		{
 			throw new PropertyNotReadable([ $property, $this ]);
 		}
@@ -199,7 +201,7 @@ trait AccessorTrait
 	 */
 	private function assert_property_is_writable($property)
 	{
-		if (property_exists($this, $property) && !$this->has_method('lazy_get_' . $property))
+		if (property_exists($this, $property) && !$this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY)))
 		{
 			$reflection = new \ReflectionObject($this);
 			$property_reflection = $reflection->getProperty($property);
@@ -212,7 +214,7 @@ trait AccessorTrait
 			return;
 		}
 
-		if ($this->has_method('get_' . $property))
+		if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER)))
 		{
 			throw new PropertyNotWritable([ $property, $this ]);
 		}

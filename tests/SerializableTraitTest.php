@@ -13,6 +13,7 @@ namespace ICanBoogie\Accessor;
 
 use ICanBoogie\Accessor\SerializableTraitTest\DateTimeProperty;
 use ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedProperties;
+use ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedPropertiesCamel;
 use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetter;
 use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetterAndForcedExport;
 use ICanBoogie\Accessor\SerializableTraitTest\VirtualProperty;
@@ -35,6 +36,24 @@ class SerializableTraitTest extends \PHPUnit_Framework_TestCase
 		$this->assertArrayNotHasKey('private_with_setter', $properties);
 		$this->assertArrayHasKey('private_with_getter_and_setter', $properties);
 		$this->assertArrayNotHasKey('private_with_lazy_getter', $properties);
+	}
+
+	public function test_sleep_camel()
+	{
+		$a = new InheritedMixedPropertiesCamel;
+		$properties = $a->__sleep();
+		$this->assertArrayHasKey('public', $properties);
+		$this->assertArrayNotHasKey('publicWithLazyGetter', $properties);
+		$this->assertArrayHasKey('protected', $properties);
+		$this->assertArrayHasKey('protectedWithGetter', $properties);
+		$this->assertArrayHasKey('protectedWithSetter', $properties);
+		$this->assertArrayHasKey('protectedWithGetterAndSetter', $properties);
+		$this->assertArrayNotHasKey('protectedWithLazyGetter', $properties);
+		$this->assertArrayNotHasKey('private', $properties);
+		$this->assertArrayNotHasKey('privateWithGetter', $properties);
+		$this->assertArrayNotHasKey('privateWithSetter', $properties);
+		$this->assertArrayHasKey('privateWithGetterAndSetter', $properties);
+		$this->assertArrayNotHasKey('privateWithLazyGetter', $properties);
 	}
 
 	public function test_virtual_properties_should_not_be_exported()

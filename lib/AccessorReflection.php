@@ -52,7 +52,7 @@ class AccessorReflection
 	 * A façade property is a combination of a private property with the corresponding volatile
 	 * getter and setter.
 	 *
-	 * @param string|object $reference Class name of instance.
+	 * @param string|HasAccessor $reference Class name or instance implementing {@link HasAccessor}.
 	 *
 	 * @return \ReflectionProperty[]
 	 */
@@ -71,7 +71,8 @@ class AccessorReflection
 		{
 			$name = $property->name;
 
-			if (!method_exists($reference, "get_{$name}") || !method_exists($reference, "set_{$name}"))
+			if (!method_exists($reference, $reference::accessor_format($name, HasAccessor::ACCESSOR_TYPE_GETTER))
+			|| !method_exists($reference, $reference::accessor_format($name, HasAccessor::ACCESSOR_TYPE_SETTER)))
 			{
 				continue;
 			}

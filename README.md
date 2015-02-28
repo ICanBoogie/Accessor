@@ -7,7 +7,15 @@
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
 
-The **Accessor** package allows classes to implement an accessor design pattern. Using a combination of getters, setters, properties, and properties visibility you can create read-only properties, write-only properties, virtual properties, and implements defaults, type control, or lazy loading.
+The **Accessor** package allows classes to implement [ICanBoogie][]'s accessor design pattern. Using a combination of getters, setters, properties, and property visibilities, you can create read-only properties, write-only properties, virtual properties; and implement defaults, type control, guarding, and lazy loading.
+
+
+
+
+
+### Preamble
+
+Because the package is a citizen of [ICanBoogie][]'s realm, which elected [snake case][] a long time ago for its readability, the following examples use the same casing, but [CamelCase][] is equally supported as we'll learn by the end of this document. Actually, because all getters and setters are formatted using the `accessor_format` trait method it is very easy to bind the formatting to one's requirements simply by overriding that method.
 
 
 
@@ -460,6 +468,42 @@ echo $awesome->property;   // awesome value
 
 
 
+## CamelCase support
+
+[CamelCase][] getters and setters are equally supported. Instead of using the [AccessorTrait][], use the [AccessorCamelTrait][]:
+
+```php
+<?php
+
+use ICanBoogie\Accessor\AccessorCamelTrait;
+
+/**
+ * @property-read $camelProperty
+ */
+class CamelExample
+{
+	use AccessorCamelTrait;
+	
+	private $camelProperty;
+	
+	protected function getCamelProperty()
+	{
+		return $this->camelProperty;
+	}
+	
+	public function __construct($value)
+	{
+		$this->camelProperty = $value;
+	}
+}
+
+$a = new CamelExample("value");
+echo $a->camelProperty;   // value
+```
+
+
+
+
 
 ----------
 
@@ -493,8 +537,7 @@ The following packages are required, you might want to check them out:
 
 ### Cloning the repository
 
-The package is [available on GitHub](https://github.com/ICanBoogie/Accessor), its repository can
-be cloned with the following command line:
+The package is [available on GitHub](https://github.com/ICanBoogie/Accessor), its repository can be cloned with the following command line:
 
 	$ git clone https://github.com/ICanBoogie/Accessor.git
 
@@ -505,10 +548,7 @@ be cloned with the following command line:
 ## Documentation
 
 The package is documented as part of the [ICanBoogie][] framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package
-and its dependencies with the `make doc` command. The documentation is generated in the `docs`
-directory. [ApiGen](http://apigen.org/) is required. The directory can later by cleaned with
-the `make clean` command.
+[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later by cleaned with the `make clean` command.
 
 
 
@@ -516,9 +556,7 @@ the `make clean` command.
 
 ## Testing
 
-The test suite is ran with the `make test` command. [Composer](http://getcomposer.org/) is
-automatically installed as well as all the dependencies required to run the suite.
-The directory can later be cleaned with the `make clean` command.
+The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and [Composer](http://getcomposer.org/) need to be globally available to run the suite. The command installs dependencies as required. The `make test-coverage` command runs test suite and also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
@@ -537,9 +575,12 @@ The package is licensed under the New BSD License. See the [LICENSE](LICENSE) fi
 
 
 
-[Build Status]: https://travis-ci.org/ICanBoogie/Accessor.svg?branch=master
-[AccessorTrait]: http://icanboogie.org/docs/class-ICanBoogie.AccessorTrait.html
-[HasAccessor]: http://icanboogie.org/docs/class-ICanBoogie.HasAccessor.html
+[AccessorCamelTrait]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.AccessorCamelTrait.html
+[AccessorTrait]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.AccessorTrait.html
+[CamelCase]: http://en.wikipedia.org/wiki/CamelCase
+[FormatAsCamel]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.FormatAsCamel.html
+[HasAccessor]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.HasAccessor.html
 [ICanBoogie]: http://icanboogie.org
 [PropertyNotWritable]: http://icanboogie.org/docs/class-ICanBoogie.PropertyNotWritable.html
 [PropertyNotReadable]: http://icanboogie.org/docs/class-ICanBoogie.PropertyNotReadable.html
+[Snake case]: http://en.wikipedia.org/wiki/Snake_case

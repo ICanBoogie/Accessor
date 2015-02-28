@@ -10,6 +10,8 @@ namespace ICanBoogie\Accessor;
  */
 trait SerializableTrait
 {
+	abstract /*static*/ public function accessor_format($property, $type, $lazy = HasAccessor::ACCESSOR_IS_NOT_LAZY);
+
 	/**
 	 * @inheritdoc
 	 */
@@ -48,27 +50,27 @@ trait SerializableTrait
 	 */
 	private function accessor_sleep()
 	{
-		$keys = array_keys(get_object_vars($this));
+		$properties = array_keys(get_object_vars($this));
 
-		if ($keys)
+		if ($properties)
 		{
-			$keys = array_combine($keys, $keys);
+			$properties = array_combine($properties, $properties);
 
-			foreach ($keys as $key)
+			foreach ($properties as $property)
 			{
-				if ($this->has_method('lazy_get_' . $key))
+				if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY)))
 				{
-					unset($keys[$key]);
+					unset($properties[$property]);
 				}
 			}
 		}
 
 		foreach (AccessorReflection::resolve_facade_properties($this) as $name => $property)
 		{
-			$keys[$name] = "\x00" . $property->class . "\x00" . $name;
+			$properties[$name] = "\x00" . $property->class . "\x00" . $name;
 		}
 
-		return $keys;
+		return $properties;
 	}
 
 	/**
@@ -77,13 +79,13 @@ trait SerializableTrait
 	 */
 	public function accessor_wakeup()
 	{
-		$vars = get_object_vars($this);
+		$properties = get_object_vars($this);
 
-		foreach ($vars as $key => $value)
+		foreach ($properties as $property => $value)
 		{
-			if ($this->has_method('lazy_get_' . $key))
+			if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY)))
 			{
-				unset($this->$key);
+				unset($this->$property);
 			}
 		}
 	}

@@ -18,6 +18,23 @@ namespace ICanBoogie\Accessor;
  */
 interface HasAccessor
 {
+	const ACCESSOR_TYPE_GETTER = "get";
+	const ACCESSOR_TYPE_SETTER = "set";
+	const ACCESSOR_IS_LAZY = 'lazy';
+	const ACCESSOR_IS_NOT_LAZY = '';
+
+	/**
+	 * Formats an accessor method name.
+	 *
+	 * @param string $property A property.
+	 * @param string $type One of {@link ACCESSOR_TYPE_GETTER} and {@link ACCESSOR_TYPE_SETTER}.
+	 * @param string $lazy One of {@link ACCESSOR_IS_NOT_LAZY} and {@link ACCESSOR_IS_LAZY}.
+	 * Defaults to {@link ACCESSOR_IS_NOT_LAZY}.
+	 *
+	 * @return mixed
+	 */
+	static public function accessor_format($property, $type, $lazy = self::ACCESSOR_IS_NOT_LAZY);
+
 	/**
 	 * Returns the value of a property.
 	 *
