@@ -177,10 +177,7 @@ trait AccessorTrait
 			#
 		}
 
-		if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER)))
-		{
-			throw new PropertyNotReadable([ $property, $this ]);
-		}
+		$this->assert_no_accessor($property, HasAccessor::ACCESSOR_TYPE_SETTER, 'ICanBoogie\PropertyNotReadable');
 
 		$properties = array_keys(get_object_vars($this));
 
@@ -215,9 +212,22 @@ trait AccessorTrait
 			return;
 		}
 
-		if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER)))
+		$this->assert_no_accessor($property, HasAccessor::ACCESSOR_TYPE_GETTER, 'ICanBoogie\PropertyNotWritable');
+	}
+
+	/**
+	 * Asserts that an accessor is not implemented.
+	 *
+	 * @param string $property
+	 * @param string $type One of {@link HasAccessor::ACCESSOR_TYPE_GETTER}
+	 * and {@link HasAccessor::ACCESSOR_TYPE_SETTER}.
+	 * @param string $exception_class
+	 */
+	private function assert_no_accessor($property, $type, $exception_class)
+	{
+		if ($this->has_method(static::accessor_format($property, $type)))
 		{
-			throw new PropertyNotWritable([ $property, $this ]);
+			throw new $exception_class([ $property, $this ]);
 		}
 	}
 }
