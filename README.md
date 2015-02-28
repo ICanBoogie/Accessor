@@ -7,10 +7,7 @@
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
 
-The **Accessor** package allows classes to implement an accessor design pattern. Using a
-combination of getters, setters, properties, and properties visibility you can create read-only
-properties, write-only properties, virtual properties, and implements defaults, type control,
-or lazy loading.
+The **Accessor** package allows classes to implement an accessor design pattern. Using a combination of getters, setters, properties, and properties visibility you can create read-only properties, write-only properties, virtual properties, and implements defaults, type control, or lazy loading.
 
 
 
@@ -18,18 +15,12 @@ or lazy loading.
 
 ## Getters and setters
 
-A getter is a method that gets the value of a specific property. A setter is a method that sets
-the value of a specific property. You can define getters and setters on classes using
-the [AccessorTrait][] trait, and optionally inform of its feature by implementing the
+A getter is a method that gets the value of a specific property. A setter is a method that sets the value of a specific property. You can define getters and setters on classes using the [AccessorTrait][] trait, and optionally inform of its feature by implementing the
 [HasAccessor][] interface.
 
-__Something to remember__: Getters and setters are only invoked when their corresponding property
-is not accessible. This is most notably important to remember when using lazy loading, which
-creates the associated property when it is invoked.
+__Something to remember__: Getters and setters are only invoked when their corresponding property is not accessible. This is most notably important to remember when using lazy loading, which creates the associated property when it is invoked.
 
-__Another thing to remember__: You don't _need_ to use getter/setter for everything and their cats,
-PHP is no Java, and it's okay to have public properties. With great power comes great
-responsibility. So enjoy getters/setters, but please use them wisely.
+__Another thing to remember__: You don't _need_ to use getter/setter for everything and their cats, PHP is no Java, and it's okay to have public properties. With great power comes great responsibility. So enjoy getters/setters, but please use them wisely.
 
 
 
@@ -37,8 +28,7 @@ responsibility. So enjoy getters/setters, but please use them wisely.
 
 ## Read-only properties
 
-Read-only properties are created by defining only a getter. A [PropertyNotWritable][] exception is
-thrown in attempt to set a read-only property.
+Read-only properties are created by defining only a getter. A [PropertyNotWritable][] exception is thrown in attempt to set a read-only property.
 
 The following example demonstrates how a `property` read-only property can be implemented:
 
@@ -47,6 +37,9 @@ The following example demonstrates how a `property` read-only property can be im
 
 use ICanBoogie\Accessor\AccessorTrait;
 
+/**
+ * @property-read mixed $property
+ */
 class ReadOnlyProperty
 {
 	use AccessorTrait;
@@ -58,8 +51,8 @@ class ReadOnlyProperty
 }
 
 $a = new ReadOnlyProperty;
-echo $a->property; // value
-$a->property = null; // throws ICanBoogie\PropertyNotWritable
+echo $a->property;     // value
+$a->property = null;   // throws ICanBoogie\PropertyNotWritable
 ```
 
 An existing property can be made read-only by setting its visibility to `protected` or `private`:
@@ -69,6 +62,9 @@ An existing property can be made read-only by setting its visibility to `protect
 
 use ICanBoogie\Accessor\AccessorTrait;
 
+/**
+ * @property-read mixed $property
+ */
 class ReadOnlyProperty
 {
 	use AccessorTrait;
@@ -82,8 +78,57 @@ class ReadOnlyProperty
 }
 
 $a = new ReadOnlyProperty;
-echo $a->property; // value
-$a->property = null; // throws ICanBoogie\PropertyNotWritable
+echo $a->property;     // value
+$a->property = null;   // throws ICanBoogie\PropertyNotWritable
+```
+
+### Protecting a _construct_ property 
+
+Read-only properties are often used to provide read access to a property that was provided during _construct_, which should stay unchanged during the life time of an instance.
+
+The following example demonstrates how a `connection` property passed during _construct_ can only be read afterwards. The visibility of the property is set to _private_ so that even an extending class cannot modify the property.
+
+```php
+<?php
+
+use ICanBoogie\Accessor\AccessorTrait;
+
+class Connection
+{
+	…
+}
+
+/**
+ * @property-read Connection $connection
+ */
+class Model
+{
+	use AccessorTrait;
+
+	/**
+	 * @var Connection
+	 */
+	private $connection;
+	
+	protected function get_connection()
+	{
+		return $this->connection;
+	}
+	
+	protected $options;
+	
+	public function __construct(Connection $connection, array $options)
+	{
+		$this->connection = $connection;
+		$this->options = $options;
+	}
+}
+
+$connection = new Connection(…);
+$model = new Model($connection, …);
+
+$connection === $model->connection;   // true
+$model->connection = null;            // throws ICanBoogie\PropertyNotWritable
 ```
 
 
@@ -92,8 +137,7 @@ $a->property = null; // throws ICanBoogie\PropertyNotWritable
 
 ## Write-only properties
 
-Write-only properties are created by defining only setter. A [PropertyNotReadable][] exception is
-thrown in attempt to get a write-only property.
+Write-only properties are created by defining only a setter. A [PropertyNotReadable][] exception is thrown in attempt to get a write-only property.
 
 The following example demonstrates how a `property` write-only property can be implemented:
 
@@ -102,6 +146,9 @@ The following example demonstrates how a `property` write-only property can be i
 
 use ICanBoogie\Accessor\AccessorTrait;
 
+/**
+ * @property-write mixed $property
+ */
 class WriteOnlyProperty
 {
 	use AccessorTrait;
@@ -114,7 +161,7 @@ class WriteOnlyProperty
 
 $a = new WriteOnlyProperty;
 $a->property = 'value';
-echo $a->property; // throws ICanBoogie\PropertyNotReadable
+echo $a->property;   // throws ICanBoogie\PropertyNotReadable
 ```
 
 An existing property can be made write-only by setting its visibility to `protected` or `private`:
@@ -124,6 +171,9 @@ An existing property can be made write-only by setting its visibility to `protec
 
 use ICanBoogie\Accessor\AccessorTrait;
 
+/**
+ * @property-write mixed $property
+ */
 class WriteOnlyProperty
 {
 	use AccessorTrait;
@@ -138,7 +188,7 @@ class WriteOnlyProperty
 
 $a = new WriteOnlyProperty;
 $a->property = 'value';
-echo $a->property; // throws ICanBoogie\PropertyNotReadable
+echo $a->property;   // throws ICanBoogie\PropertyNotReadable
 ```
 
 
@@ -147,17 +197,18 @@ echo $a->property; // throws ICanBoogie\PropertyNotReadable
 
 ## Virtual properties
 
-A virtual property is created by defining a getter and a setter but no property. Virtual
-properties are usually providing an interface to another property or data structure.
+A virtual property is created by defining a getter and a setter but no corresponding property. Virtual properties are usually providing an interface to another property or data structure.
 
-The following example demonstrates how a `minutes` virtual property can be implemented as an
-interface to a `seconds` property.
+The following example demonstrates how a `minutes` virtual property can be implemented as an interface to a `seconds` property.
 
 ```php
 <?php
 
 use ICanBoogie\Accessor\AccessorTrait;
 
+/**
+ * @property int $minutes
+ */
 class Time
 {
 	use AccessorTrait;
@@ -177,10 +228,10 @@ class Time
 
 $time = new Time;
 $time->seconds = 120;
-echo $time->minutes; // 2
+echo $time->minutes;   // 2
 
 $time->minutes = 4;
-echo $time->seconds; // 240
+echo $time->seconds;   // 240
 ```
 
 
@@ -189,14 +240,9 @@ echo $time->seconds; // 240
 
 ## Providing a default value until a property is set
 
-Because getters are invoked when their corresponding property is inaccessible, and because
-an unset property is inaccessible, it is possible to define getters to provide default values
-until a value is actually set.
+Because getters are invoked when their corresponding property is inaccessible, and because an unset property is of course inaccessible, it is possible to define getters providing default values until a value is actually set.
 
-The following example demonstrates how a default value can be provided when the value of a
-property is missing. When the value of the `slug` property is empty the property is unset,
-making it inaccessible. Thus, until the property is actually set, the getter will be invoked
-and will return a default value created from the `title` property.
+The following example demonstrates how a default value can be provided while a property is inaccessible (unset an that case). During construct, if the `slug` property is empty it is unset, making it inaccessible. Thus, until the property is actually set, when the `slug` property is read its getter is invoked and returns a default value created from the `title` property.
 
 ```php
 <?php
@@ -242,13 +288,11 @@ echo $article->slug;   // this-is-my-article
 
 ## Façade properties (and type control)
 
-Sometimes you want to be able to manage the type of a property, what you can store, what you
-can retrieve, the most transparently possible. This can be achieved with _façade properties_.
+Sometimes you want to be able to manage the type of a property, what can be stored, what can be retrieved, the most transparently possible. This can be achieved with _façade properties_.
 
-Façade properties are setup by defining a private property along with its getter and setter.
-The following example demonstrates how a `created_at` property is created, that can be set
-to a `DateTime` instance, a string, an integer or null, while always returning
-a `DateTime` instance.
+Façade properties are implemented by defining a private property along with its getter and setter.
+
+The following example demonstrates how a `created_at` property is implemented. It can be set to a mixed value, but is always read as a `DateTime` instance.
 
 ```php
 <?php
@@ -256,6 +300,9 @@ a `DateTime` instance.
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\DateTime;
 
+/**
+ * @property DateTime $created_at
+ */
 class Article
 {
 	use AccessorTrait;
@@ -287,8 +334,7 @@ class Article
 
 ### Façade properties are exported on serialization
 
-Although façade properties are defined using a private property, they are exported when the
-instance is serialized, just like they would if they were public or protected.
+Although façade properties are defined using private properties, they are exported when the instance is serialized, just like they would if they were public or protected.
 
 ```php
 <?php
@@ -307,18 +353,18 @@ $article->created_at == $test->created_at;   // true
 
 ## Lazy loading
 
-Lazy loading creates the associated property when it is invoked, making subsequent accesses
-using the property rather than the getter.
+Lazy loading creates the associated property when it is invoked, making subsequent accesses using the property rather than the getter.
 
-In the following example, the `lazy_get_pseudo_uniqid()` getter returns a unique value,
-but because the `pseudo_uniqid` property is created with the `public` visibility after the
-getter was called, any subsequent access to the property returns the same value:
+In the following example, the `lazy_get_pseudo_uniqid()` getter returns a unique value, but because the `pseudo_uniqid` property is created with the `public` visibility after the getter was called, any subsequent access to the property returns the same value:
 
 ```php
 <?php
 
 use ICanBoogie\Object;
 
+/**
+ * @property string $pseudo_uniqid
+ */
 class PseudoUniqID extends Object
 {
 	protected function lazy_get_pseudo_uniqid()
@@ -343,6 +389,73 @@ unset($a->pseudo_uniqid);
 echo $a->pseudo_uniqid; // 508949b5aaa00
 echo $a->pseudo_uniqid; // 508949b5aaa00
 ```
+
+
+
+
+
+### Setting a lazy property
+
+Lazy properties are implemented similarly to read-only properties, by defining a method to get a value, but unlike read-only properties lazy properties can be written too:
+
+```php
+<?php
+
+$a = new PseudoUniqID;
+
+echo $a->pseudo_uniqid;   // a009b3a984a50
+$a->pseudo_uniqid = 123456
+echo $a->pseudo_uniqid;   // 123456
+
+unset($a->pseudo_uniqid);
+echo $a->pseudo_uniqid;   // 57e5ada092180
+```
+
+You need to remember that lazy properties actually _create_ a property, thus the getter won't be invoked if the property is already accessible.
+
+
+
+
+
+## Overloading getters and setters
+
+Because getters and setters are classic methods, they can be overloaded. That is, the setter or getter of a parent class can be overloaded by an extending class.
+
+The following example demonstrates how an `Awesome` class extending an `Plain` class can turn a _plain_ getter into an awesome getter:
+
+```php
+<?php
+
+use ICanBoogie\Accessor\AccessorTrait
+
+/**
+ * @property-read string $property
+ */
+class Plain
+{
+	use AccessorTrait;
+	
+	protected function get_property()
+	{
+		return "value";
+	}
+}
+
+class Awesome extends
+{
+	protected function get_property()
+	{
+		return "awesome " . parent::get_property();
+	}
+}
+
+$plain = new Plain;
+echo $plain->property;     // value
+
+$awesome = new Awesome;
+echo $awesome->property;   // awesome value
+```
+
 
 
 
