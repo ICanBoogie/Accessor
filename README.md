@@ -1,6 +1,6 @@
 # Accessor
 
-[![Release](https://img.shields.io/github/release/ICanBoogie/Accessor.svg)](https://github.com/ICanBoogie/Accessor/releases)
+[![Release](https://img.shields.io/packagist/v/ICanBoogie/Accessor.svg)](https://github.com/ICanBoogie/Accessor/releases)
 [![Build Status](https://img.shields.io/travis/ICanBoogie/Accessor.svg)](http://travis-ci.org/ICanBoogie/Accessor)
 [![HHVM](https://img.shields.io/hhvm/icanboogie/accessor.svg)](http://hhvm.h4cc.de/package/icanboogie/accessor)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Accessor.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Accessor)

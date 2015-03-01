@@ -2,6 +2,11 @@
 
 namespace ICanBoogie\Accessor;
 
+/**
+ * Provides methods to reflect on accessor.
+ *
+ * @package ICanBoogie\Accessor
+ */
 class AccessorReflection
 {
 	static private $private_properties_cache = [];
@@ -43,7 +48,9 @@ class AccessorReflection
 			$class_reflection = $class_reflection->getParentClass();
 		}
 
-		return self::$private_properties_cache[$reference] = $private_properties ? call_user_func_array('array_merge', $private_properties) : [];
+		return self::$private_properties_cache[$reference] = $private_properties
+			? call_user_func_array('array_merge', $private_properties)
+			: [];
 	}
 
 	/**
