@@ -7,7 +7,10 @@
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
 
-The **Accessor** package allows classes to implement [ICanBoogie][]'s accessor design pattern. Using a combination of getters, setters, properties, and property visibilities, you can create read-only properties, write-only properties, virtual properties; and implement defaults, type control, guarding, and lazy loading.
+The **icanboogie/accessor** package allows classes to implement [ICanBoogie][]'s accessor
+design pattern. Using a combination of getters, setters, properties, and property visibilities,
+you can create read-only properties, write-only properties, virtual properties;
+and implement defaults, type control, guarding, and lazy loading.
 
 
 
@@ -15,7 +18,11 @@ The **Accessor** package allows classes to implement [ICanBoogie][]'s accessor d
 
 ### Preamble
 
-Because the package is a citizen of [ICanBoogie][]'s realm, which elected [snake case][] a long time ago for its readability, the following examples use the same casing, but [CamelCase][] is equally supported as we'll learn by the end of this document. Actually, because all getters and setters are formatted using the `accessor_format` trait method it is very easy to bind the formatting to one's requirements simply by overriding that method.
+Because the package is a citizen of [ICanBoogie][]'s realm, which elected [snake case][] a long
+time ago for its readability, the following examples use the same casing, but [CamelCase][] is
+equally supported as we'll learn by the end of this document. Actually, because all getters and
+setters are formatted using the `accessor_format` trait method it is very easy to bind the
+formatting to one's requirements simply by overriding that method.
 
 
 
@@ -23,12 +30,18 @@ Because the package is a citizen of [ICanBoogie][]'s realm, which elected [snake
 
 ## Getters and setters
 
-A getter is a method that gets the value of a specific property. A setter is a method that sets the value of a specific property. You can define getters and setters on classes using the [AccessorTrait][] trait, and optionally inform of its feature by implementing the
+A getter is a method that gets the value of a specific property. A setter is a method that sets
+the value of a specific property. You can define getters and setters on classes using
+the [AccessorTrait][] trait, and optionally inform of its feature by implementing the
 [HasAccessor][] interface.
 
-__Something to remember__: Getters and setters are only invoked when their corresponding property is not accessible. This is most notably important to remember when using lazy loading, which creates the associated property when it is invoked.
+__Something to remember__: Getters and setters are only invoked when their corresponding property
+is not accessible. This is most notably important to remember when using lazy loading,
+which creates the associated property when it is invoked.
 
-__Another thing to remember__: You don't _need_ to use getter/setter for everything and their cats, PHP is no Java, and it's okay to have public properties. With great power comes great responsibility. So enjoy getters/setters, but please use them wisely.
+__Another thing to remember__: You don't _need_ to use getter/setter for everything and their cats,
+PHP is no Java, and it's okay to have public properties. With great power comes great
+responsibility. So enjoy getters/setters, but please use them wisely.
 
 
 
@@ -36,7 +49,8 @@ __Another thing to remember__: You don't _need_ to use getter/setter for everyth
 
 ## Read-only properties
 
-Read-only properties are created by defining only a getter. A [PropertyNotWritable][] exception is thrown in attempt to set a read-only property.
+Read-only properties are created by defining only a getter. A [PropertyNotWritable][] exception
+is thrown in attempt to set a read-only property.
 
 The following example demonstrates how a `property` read-only property can be implemented:
 
@@ -92,9 +106,12 @@ $a->property = null;   // throws ICanBoogie\PropertyNotWritable
 
 ### Protecting a _construct_ property 
 
-Read-only properties are often used to provide read access to a property that was provided during _construct_, which should stay unchanged during the life time of an instance.
+Read-only properties are often used to provide read access to a property that was provided
+during _construct_, which should stay unchanged during the life time of an instance.
 
-The following example demonstrates how a `connection` property passed during _construct_ can only be read afterwards. The visibility of the property is set to _private_ so that even an extending class cannot modify the property.
+The following example demonstrates how a `connection` property passed during _construct_
+can only be read afterwards. The visibility of the property is set to _private_
+so that even an extending class cannot modify the property.
 
 ```php
 <?php
@@ -145,7 +162,8 @@ $model->connection = null;            // throws ICanBoogie\PropertyNotWritable
 
 ## Write-only properties
 
-Write-only properties are created by defining only a setter. A [PropertyNotReadable][] exception is thrown in attempt to get a write-only property.
+Write-only properties are created by defining only a setter. A [PropertyNotReadable][] exception
+is thrown in attempt to get a write-only property.
 
 The following example demonstrates how a `property` write-only property can be implemented:
 
@@ -205,9 +223,11 @@ echo $a->property;   // throws ICanBoogie\PropertyNotReadable
 
 ## Virtual properties
 
-A virtual property is created by defining a getter and a setter but no corresponding property. Virtual properties are usually providing an interface to another property or data structure.
+A virtual property is created by defining a getter and a setter but no corresponding property.
+Virtual properties are usually providing an interface to another property or data structure.
 
-The following example demonstrates how a `minutes` virtual property can be implemented as an interface to a `seconds` property.
+The following example demonstrates how a `minutes` virtual property can be implemented
+as an interface to a `seconds` property.
 
 ```php
 <?php
@@ -248,9 +268,15 @@ echo $time->seconds;   // 240
 
 ## Providing a default value until a property is set
 
-Because getters are invoked when their corresponding property is inaccessible, and because an unset property is of course inaccessible, it is possible to define getters providing default values until a value is actually set.
+Because getters are invoked when their corresponding property is inaccessible,
+and because an unset property is of course inaccessible, it is possible to define getters
+providing default values until a value is actually set.
 
-The following example demonstrates how a default value can be provided while a property is inaccessible (unset an that case). During construct, if the `slug` property is empty it is unset, making it inaccessible. Thus, until the property is actually set, when the `slug` property is read its getter is invoked and returns a default value created from the `title` property.
+The following example demonstrates how a default value can be provided while a property
+is inaccessible (unset an that case). During construct, if the `slug` property is empty
+it is unset, making it inaccessible. Thus, until the property is actually set,
+when the `slug` property is read its getter is invoked and returns a default value created from
+the `title` property.
 
 ```php
 <?php
@@ -296,11 +322,14 @@ echo $article->slug;   // this-is-my-article
 
 ## Façade properties (and type control)
 
-Sometimes you want to be able to manage the type of a property, what can be stored, what can be retrieved, the most transparently possible. This can be achieved with _façade properties_.
+Sometimes you want to be able to manage the type of a property, what can be stored,
+what can be retrieved, the most transparently possible. This can be achieved
+with _façade properties_.
 
 Façade properties are implemented by defining a private property along with its getter and setter.
 
-The following example demonstrates how a `created_at` property is implemented. It can be set to a mixed value, but is always read as a `DateTime` instance.
+The following example demonstrates how a `created_at` property is implemented.
+It can be set to a mixed value, but is always read as a `DateTime` instance.
 
 ```php
 <?php
@@ -342,7 +371,8 @@ class Article
 
 ### Façade properties are exported on serialization
 
-Although façade properties are defined using private properties, they are exported when the instance is serialized, just like they would if they were public or protected.
+Although façade properties are defined using private properties, they are exported when
+the instance is serialized, just like they would if they were public or protected.
 
 ```php
 <?php
@@ -361,9 +391,12 @@ $article->created_at == $test->created_at;   // true
 
 ## Lazy loading
 
-Lazy loading creates the associated property when it is invoked, making subsequent accesses using the property rather than the getter.
+Lazy loading creates the associated property when it is invoked, making subsequent accesses using
+the property rather than the getter.
 
-In the following example, the `lazy_get_pseudo_uniqid()` getter returns a unique value, but because the `pseudo_uniqid` property is created with the `public` visibility after the getter was called, any subsequent access to the property returns the same value:
+In the following example, the `lazy_get_pseudo_uniqid()` getter returns a unique value,
+but because the `pseudo_uniqid` property is created with the `public` visibility after
+the getter was called, any subsequent access to the property returns the same value:
 
 ```php
 <?php
@@ -404,7 +437,8 @@ echo $a->pseudo_uniqid; // 508949b5aaa00
 
 ### Setting a lazy property
 
-Lazy properties are implemented similarly to read-only properties, by defining a method to get a value, but unlike read-only properties lazy properties can be written too:
+Lazy properties are implemented similarly to read-only properties, by defining a method
+to get a value, but unlike read-only properties lazy properties can be written too:
 
 ```php
 <?php
@@ -419,7 +453,8 @@ unset($a->pseudo_uniqid);
 echo $a->pseudo_uniqid;   // 57e5ada092180
 ```
 
-You need to remember that lazy properties actually _create_ a property, thus the getter won't be invoked if the property is already accessible.
+You need to remember that lazy properties actually _create_ a property,
+thus the getter won't be invoked if the property is already accessible.
 
 
 
@@ -427,9 +462,11 @@ You need to remember that lazy properties actually _create_ a property, thus the
 
 ## Overloading getters and setters
 
-Because getters and setters are classic methods, they can be overloaded. That is, the setter or getter of a parent class can be overloaded by an extending class.
+Because getters and setters are classic methods, they can be overloaded. That is,
+the setter or getter of a parent class can be overloaded by an extending class.
 
-The following example demonstrates how an `Awesome` class extending an `Plain` class can turn a _plain_ getter into an awesome getter:
+The following example demonstrates how an `Awesome` class extending an `Plain` class can turn
+a _plain_ getter into an awesome getter:
 
 ```php
 <?php
@@ -470,7 +507,8 @@ echo $awesome->property;   // awesome value
 
 ## CamelCase support
 
-[CamelCase][] getters and setters are equally supported. Instead of using the [AccessorTrait][], use the [AccessorCamelTrait][]:
+[CamelCase][] getters and setters are equally supported. Instead of using the [AccessorTrait][],
+use the [AccessorCamelTrait][]:
 
 ```php
 <?php
@@ -537,7 +575,8 @@ The following packages are required, you might want to check them out:
 
 ### Cloning the repository
 
-The package is [available on GitHub](https://github.com/ICanBoogie/Accessor), its repository can be cloned with the following command line:
+The package is [available on GitHub](https://github.com/ICanBoogie/Accessor),
+its repository can be cloned with the following command line:
 
 	$ git clone https://github.com/ICanBoogie/Accessor.git
 
@@ -547,8 +586,11 @@ The package is [available on GitHub](https://github.com/ICanBoogie/Accessor), it
 
 ## Documentation
 
-The package is documented as part of the [ICanBoogie][] framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `build/docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later be cleaned with the `make clean` command.
+The package is documented as part of the [ICanBoogie][] framework [documentation][].
+You can generate the documentation for the package and its dependencies with
+the `make doc` command. The documentation is generated in the `build/docs` directory.
+[ApiGen](http://apigen.org/) is required. The directory can later be cleaned with
+the `make clean` command.
 
 
 
@@ -556,7 +598,11 @@ The package is documented as part of the [ICanBoogie][] framework
 
 ## Testing
 
-The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and [Composer](http://getcomposer.org/) need to be globally available to run the suite. The command installs dependencies as required. The `make test-coverage` command runs test suite and also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with the `make clean` command.
+The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and
+[Composer](http://getcomposer.org/) need to be globally available to run the suite.
+The command installs dependencies as required. The `make test-coverage` command runs test suite and
+also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with
+the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
@@ -575,12 +621,12 @@ The package is licensed under the New BSD License. See the [LICENSE](LICENSE) fi
 
 
 
-[AccessorCamelTrait]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.AccessorCamelTrait.html
-[AccessorTrait]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.AccessorTrait.html
-[CamelCase]: http://en.wikipedia.org/wiki/CamelCase
-[FormatAsCamel]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.FormatAsCamel.html
-[HasAccessor]: http://icanboogie.org/docs/class-ICanBoogie.Accessor.HasAccessor.html
-[ICanBoogie]: http://icanboogie.org
-[PropertyNotWritable]: http://icanboogie.org/docs/class-ICanBoogie.PropertyNotWritable.html
-[PropertyNotReadable]: http://icanboogie.org/docs/class-ICanBoogie.PropertyNotReadable.html
-[Snake case]: http://en.wikipedia.org/wiki/Snake_case
+[AccessorCamelTrait]:  http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.AccessorCamelTrait.html
+[AccessorTrait]:       http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.AccessorTrait.html
+[FormatAsCamel]:       http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.FormatAsCamel.html
+[HasAccessor]:         http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.HasAccessor.html
+[PropertyNotWritable]: http://api.icanboogie.org/common/1.2/class-ICanBoogie.PropertyNotWritable.html
+[PropertyNotReadable]: http://api.icanboogie.org/common/1.2/class-ICanBoogie.PropertyNotReadable.html
+[ICanBoogie]:          http://icanboogie.org
+[CamelCase]:           http://en.wikipedia.org/wiki/CamelCase
+[Snake case]:          http://en.wikipedia.org/wiki/Snake_case
