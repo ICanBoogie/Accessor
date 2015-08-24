@@ -22,8 +22,6 @@ class B implements HasAccessor
 }
 
 /**
- * @package ICanBoogie\Accessor\AccessorTraitTest
- *
  * @property int $minutes
  */
 class PropertyWithGetterAndForcedExport extends B

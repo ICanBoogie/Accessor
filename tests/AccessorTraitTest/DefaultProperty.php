@@ -15,8 +15,6 @@ use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\Accessor\HasAccessor;
 
 /**
- * @package ICanBoogie\Accessor\AccessorTraitTest
- *
  * @property mixed $value
  */
 class DefaultProperty implements HasAccessor

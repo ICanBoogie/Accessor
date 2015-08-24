@@ -5,8 +5,6 @@ namespace ICanBoogie\Accessor;
 /**
  * Improves serialization of objects, exporting façade properties and removing properties for
  * which lazy getters are defined.
- *
- * @package ICanBoogie\Accessor
  */
 trait SerializableTrait
 {

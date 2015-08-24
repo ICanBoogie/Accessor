@@ -281,14 +281,16 @@ the `title` property.
 ```php
 <?php
 
-use ICanBoogie\Object;
+use ICanBoogie\Accessor\AccessorTrait;
 
-class Article extends Object
+class Article
 {
+	use AccessorTrait;
+
 	public $title;
 	public $slug;
 
-	public function __construct($title, $slug=null)
+	public function __construct($title, $slug = null)
 	{
 		$this->title = $tile;
 
@@ -401,13 +403,15 @@ the getter was called, any subsequent access to the property returns the same va
 ```php
 <?php
 
-use ICanBoogie\Object;
+use ICanBoogie\Accessor\AccessorTrait;
 
 /**
  * @property string $pseudo_uniqid
  */
-class PseudoUniqID extends Object
+class PseudoUniqID
 {
+	use AccessorTrait;
+
 	protected function lazy_get_pseudo_uniqid()
 	{
 		return uniqid();

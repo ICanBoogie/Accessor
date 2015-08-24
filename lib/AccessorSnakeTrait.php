@@ -15,8 +15,6 @@ namespace ICanBoogie\Accessor;
  * An accessor trait using snake casing.
  *
  * Alias to {@link AccessorTrait}.
- *
- * @package ICanBoogie\Accessor
  */
 trait AccessorSnakeTrait
 {

@@ -16,8 +16,6 @@ use ICanBoogie\Accessor\HasAccessor;
 use ICanBoogie\Accessor\SerializableTrait;
 
 /**
- * @package ICanBoogie\Accessor\AccessorTraitTest
- *
  * @property \DateTime $datetime
  */
 class DateTimeProperty implements HasAccessor

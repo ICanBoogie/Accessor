@@ -4,8 +4,6 @@ namespace ICanBoogie\Accessor;
 
 /**
  * Provides methods to reflect on accessor.
- *
- * @package ICanBoogie\Accessor
  */
 class AccessorReflection
 {

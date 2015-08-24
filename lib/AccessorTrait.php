@@ -17,8 +17,6 @@ use ICanBoogie\PropertyNotWritable;
 
 /**
  * Implements ICanBoogie's accessor pattern.
- *
- * @package ICanBoogie\Accessor
  */
 trait AccessorTrait
 {
@@ -73,16 +71,7 @@ trait AccessorTrait
 	/**
 	 * Returns the value of an inaccessible property.
 	 *
-	 * Multiple callbacks are tried in order to retrieve the value of the property:
-	 *
-	 * 1. `get_<property>`: Get and return the value of the property.
-	 * 2. `lazy_get_<property>`: Get, set and return the value of the property. Because new
-	 * properties are created as public the callback is only called once which is ideal for lazy
-	 * loading.
-	 * 3. The prototype is queried for callbacks for the `get_<property>` and
-	 * `lazy_get_<property>` methods.
-	 * 4. Finally, the `ICanBoogie\Object::property` event is fired to try and retrieve the value
-	 * of the property.
+	 * The method tries to get the property using the getter and lazy getter methods.
 	 *
 	 * @param string $property
 	 *

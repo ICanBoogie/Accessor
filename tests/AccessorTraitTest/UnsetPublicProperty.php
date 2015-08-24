@@ -14,9 +14,6 @@ namespace ICanBoogie\Accessor\AccessorTraitTest;
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\Accessor\HasAccessor;
 
-/**
- * @package ICanBoogie\Accessor\AccessorTraitTest
- */
 class UnsetPublicProperty implements HasAccessor
 {
 	use AccessorTrait;

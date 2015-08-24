@@ -13,8 +13,6 @@ namespace ICanBoogie\Accessor;
 
 /**
  * Interface for classes implementing the accessor pattern.
- *
- * @package ICanBoogie\Accessor
  */
 interface HasAccessor
 {

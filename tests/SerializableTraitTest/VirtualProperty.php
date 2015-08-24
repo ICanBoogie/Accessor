@@ -16,8 +16,6 @@ use ICanBoogie\Accessor\HasAccessor;
 use ICanBoogie\Accessor\SerializableTrait;
 
 /**
- * @package ICanBoogie\Accessor\AccessorTraitTest
- *
  * @property int $minutes
  */
 class VirtualProperty implements HasAccessor

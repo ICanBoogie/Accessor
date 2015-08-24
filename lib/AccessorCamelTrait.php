@@ -13,8 +13,6 @@ namespace ICanBoogie\Accessor;
 
 /**
  * An accessor trait using camel casing.
- *
- * @package ICanBoogie\Accessor
  */
 trait AccessorCamelTrait
 {
