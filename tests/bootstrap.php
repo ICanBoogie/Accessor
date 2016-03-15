@@ -10,6 +10,4 @@
  */
 
 $loader = require __DIR__ . '/../vendor/autoload.php';
-$loader->addPsr4("ICanBoogie\\Accessor\\AccessorTraitTest\\", __DIR__ . '/AccessorTraitTest');
-$loader->addPsr4("ICanBoogie\\Accessor\\AccessorReflectionTest\\", __DIR__ . '/AccessorReflectionTest');
-$loader->addPsr4("ICanBoogie\\Accessor\\SerializableTraitTest\\", __DIR__ . '/SerializableTraitTest');
+$loader->addPsr4("ICanBoogie\\Accessor\\", __DIR__);

@@ -20,8 +20,8 @@
 	},
 
 	"require": {
-		"php": ">=5.4.0",
-		"icanboogie/common": ">=1.2"
+		"php": ">=5.4",
+		"icanboogie/common": "^1.2"
 	},
 
 	"autoload": {

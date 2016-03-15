@@ -1,7 +1,7 @@
 # customization
 
-PACKAGE_NAME = ICanBoogie/Accessor
-PACKAGE_VERSION = v1.0.2
+PACKAGE_NAME = icanboogie/accessor
+PACKAGE_VERSION = 1.0
 
 # do not edit the following lines
 
@@ -28,9 +28,6 @@ doc: vendor
 	@mkdir -p build/docs
 	@apigen generate \
 	--source lib \
-	--source vendor \
-	--exclude "*/composer/*" \
-	--exclude "*/autoload.php" \
 	--destination build/docs/ \
 	--title "$(PACKAGE_NAME) $(PACKAGE_VERSION)" \
 	--template-theme "bootstrap"

@@ -1,6 +1,6 @@
 # Accessor
 
-[![Release](https://img.shields.io/packagist/v/ICanBoogie/Accessor.svg)](https://github.com/ICanBoogie/Accessor/releases)
+[![Release](https://img.shields.io/packagist/v/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
 [![Build Status](https://img.shields.io/travis/ICanBoogie/Accessor.svg)](http://travis-ci.org/ICanBoogie/Accessor)
 [![HHVM](https://img.shields.io/hhvm/icanboogie/accessor.svg)](http://hhvm.h4cc.de/package/icanboogie/accessor)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Accessor.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Accessor)
@@ -619,7 +619,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 ## License
 
-The package is licensed under the New BSD License. See the [LICENSE](LICENSE) file for details.
+**icanboogie/accessor** is licensed under the New BSD License. See the [LICENSE](LICENSE) file for details.
 
 
 
