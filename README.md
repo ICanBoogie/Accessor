@@ -625,12 +625,13 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[AccessorCamelTrait]:  http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.AccessorCamelTrait.html
-[AccessorTrait]:       http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.AccessorTrait.html
-[FormatAsCamel]:       http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.FormatAsCamel.html
-[HasAccessor]:         http://api.icanboogie.org/accessor/1.0/class-ICanBoogie.Accessor.HasAccessor.html
-[PropertyNotWritable]: http://api.icanboogie.org/common/1.2/class-ICanBoogie.PropertyNotWritable.html
-[PropertyNotReadable]: http://api.icanboogie.org/common/1.2/class-ICanBoogie.PropertyNotReadable.html
-[ICanBoogie]:          http://icanboogie.org
+[documentation]:       https://icanboogie.org/api/accessor/1.0/
+[AccessorCamelTrait]:  https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.AccessorCamelTrait.html
+[AccessorTrait]:       https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.AccessorTrait.html
+[FormatAsCamel]:       https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.FormatAsCamel.html
+[HasAccessor]:         https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.HasAccessor.html
+[PropertyNotWritable]: https://icanboogie.org/api/common/1.2/class-ICanBoogie.PropertyNotWritable.html
+[PropertyNotReadable]: https://icanboogie.org/api/common/1.2/class-ICanBoogie.PropertyNotReadable.html
+[ICanBoogie]:          https://icanboogie.org
 [CamelCase]:           http://en.wikipedia.org/wiki/CamelCase
 [Snake case]:          http://en.wikipedia.org/wiki/Snake_case
