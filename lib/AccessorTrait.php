@@ -14,10 +14,16 @@ namespace ICanBoogie\Accessor;
 use ICanBoogie\PropertyNotDefined;
 use ICanBoogie\PropertyNotReadable;
 use ICanBoogie\PropertyNotWritable;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionObject;
 use function array_keys;
+use function get_class;
 use function get_object_vars;
+use function implode;
 use function method_exists;
 use function property_exists;
+use function sprintf;
 
 /**
  * Implements ICanBoogie's accessor pattern.
@@ -26,48 +32,26 @@ trait AccessorTrait
 {
 	use FormatAsSnake;
 
-	/**
-	 * @inheritdoc
-	 */
 	public function __get($property)
 	{
 		return $this->accessor_get($property);
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	public function __set($property, $value)
 	{
 		$this->accessor_set($property, $value);
 	}
 
-	/**
-	 * Whether an object has a property.
-	 *
-	 * The property can be defined by the class or handled by a getter or setter, or both.
-	 *
-	 * @param string $property
-	 *
-	 * @return bool `true` if the object has a property, `false` otherwise.
-	 */
-	public function has_property($property)
+	public function has_property(string $property): bool
 	{
 		return property_exists($this, $property)
-		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER))
-		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY))
-		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER))
-		|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER, HasAccessor::ACCESSOR_IS_LAZY));
+			|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER))
+			|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY))
+			|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER))
+			|| $this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER, HasAccessor::ACCESSOR_IS_LAZY));
 	}
 
-	/**
-	 * Whether an object has a method.
-	 *
-	 * @param string $method
-	 *
-	 * @return bool `true` if the object has a method, `false` otherwise.
-	 */
-	public function has_method($method)
+	public function has_method(string $method): bool
 	{
 		return method_exists($this, $method);
 	}
@@ -77,11 +61,9 @@ trait AccessorTrait
 	 *
 	 * The method tries to get the property using the getter and lazy getter methods.
 	 *
-	 * @param string $property
-	 *
 	 * @return mixed
 	 */
-	private function accessor_get($property)
+	private function accessor_get(string $property)
 	{
 		$method = static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER);
 
@@ -113,10 +95,11 @@ trait AccessorTrait
 	 * A `lazy_set_<property>` method can be used to set properties that are protected or
 	 * private, which can be used to make properties write-only for example.
 	 *
-	 * @param string $property
 	 * @param mixed $value
+	 *
+	 * @throws ReflectionException
 	 */
-	private function accessor_set($property, $value)
+	private function accessor_set(string $property, $value): void
 	{
 		$method = static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_SETTER);
 
@@ -144,17 +127,15 @@ trait AccessorTrait
 	/**
 	 * Asserts that a property is readable.
 	 *
-	 * @param string $property
-	 *
 	 * @throws PropertyNotDefined when the property is not defined.
 	 * @throws PropertyNotReadable when the property is not accessible or is write-only
 	 * (the property is not defined and only a setter is available).
 	 */
-	private function assert_property_is_readable($property)
+	private function assert_property_is_readable(string $property): void
 	{
 		try
 		{
-			$reflexion_class = new \ReflectionClass($this);
+			$reflexion_class = new ReflectionClass($this);
 			$reflexion_property = $reflexion_class->getProperty($property);
 
 			if (!$reflexion_property->isPublic())
@@ -162,7 +143,7 @@ trait AccessorTrait
 				throw new PropertyNotReadable([ $property, $this ]);
 			}
 		}
-		catch (\ReflectionException $e)
+		catch (ReflectionException $e)
 		{
 			#
 			# An exception may occur if the property is not defined, we don't care about that.
@@ -184,16 +165,14 @@ trait AccessorTrait
 	/**
 	 * Asserts that a property is writable.
 	 *
-	 * @param string $property
-	 *
-	 * @throws PropertyNotWritable when the property doesn't exists, has no lazy getter and is
+	 * @throws PropertyNotWritable|ReflectionException when the property doesn't exist, has no lazy getter and is
 	 * not public; or when only a getter is implemented.
 	 */
-	private function assert_property_is_writable($property)
+	private function assert_property_is_writable(string $property): void
 	{
 		if (property_exists($this, $property) && !$this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY)))
 		{
-			$reflection = new \ReflectionObject($this);
+			$reflection = new ReflectionObject($this);
 			$property_reflection = $reflection->getProperty($property);
 
 			if (!$property_reflection->isPublic())
@@ -210,12 +189,10 @@ trait AccessorTrait
 	/**
 	 * Asserts that an accessor is not implemented.
 	 *
-	 * @param string $property
 	 * @param string $type One of {@link HasAccessor::ACCESSOR_TYPE_GETTER}
 	 * and {@link HasAccessor::ACCESSOR_TYPE_SETTER}.
-	 * @param string $exception_class
 	 */
-	private function assert_no_accessor($property, $type, $exception_class)
+	private function assert_no_accessor(string $property, string $type, string $exception_class): void
 	{
 		if ($this->has_method(static::accessor_format($property, $type)))
 		{

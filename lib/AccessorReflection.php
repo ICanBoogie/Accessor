@@ -11,6 +11,9 @@
 
 namespace ICanBoogie\Accessor;
 
+use ReflectionClass;
+use ReflectionException;
+use ReflectionProperty;
 use function array_merge;
 use function get_class;
 use function is_object;
@@ -26,10 +29,8 @@ final class AccessorReflection
 
 	/**
 	 * @param string|object $reference
-	 *
-	 * @return string
 	 */
-	static private function resolve_reference($reference)
+	static private function resolve_reference($reference): string
 	{
 		if (is_object($reference))
 		{
@@ -45,11 +46,11 @@ final class AccessorReflection
 	 *
 	 * @param string|object $reference Class name or instance.
 	 *
-	 * @return \ReflectionProperty[]
+	 * @return ReflectionProperty[]
 	 *
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
-	static public function resolve_private_properties($reference)
+	static public function resolve_private_properties($reference): array
 	{
 		$reference = self::resolve_reference($reference);
 		$cached = &self::$private_properties_cache[$reference];
@@ -60,11 +61,11 @@ final class AccessorReflection
 		}
 
 		$private_properties = [];
-		$class_reflection = new \ReflectionClass($reference);
+		$class_reflection = new ReflectionClass($reference);
 
 		while ($class_reflection)
 		{
-			$private_properties[] = $class_reflection->getProperties(\ReflectionProperty::IS_PRIVATE);
+			$private_properties[] = $class_reflection->getProperties(ReflectionProperty::IS_PRIVATE);
 			$class_reflection = $class_reflection->getParentClass();
 		}
 
@@ -81,11 +82,11 @@ final class AccessorReflection
 	 *
 	 * @param string|HasAccessor $reference Class name or instance implementing {@link HasAccessor}.
 	 *
-	 * @return \ReflectionProperty[]
+	 * @return ReflectionProperty[]
 	 *
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
-	static public function resolve_facade_properties($reference)
+	static public function resolve_facade_properties($reference): array
 	{
 		$reference = self::resolve_reference($reference);
 		$facade_properties = &self::$facade_properties_cache[$reference];

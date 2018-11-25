@@ -1,7 +1,7 @@
-FROM php:5.6-alpine
+FROM php:7.1-alpine
 
 RUN apk add --update --no-cache make $PHPIZE_DEPS && \
-	pecl install xdebug-2.5.5 && \
+	pecl install xdebug-2.6.1 && \
 	docker-php-ext-enable xdebug
 
 RUN echo $'\

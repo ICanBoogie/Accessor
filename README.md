@@ -133,7 +133,7 @@ class Model
      */
     private $connection;
 
-    protected function get_connection()
+    protected function get_connection(): Connection
     {
         return $this->connection;
     }
@@ -241,12 +241,12 @@ class Time
 
     public $seconds;
 
-    protected function set_minutes($minutes)
+    protected function set_minutes(int $minutes)
     {
         $this->seconds = $minutes * 60;
     }
 
-    protected function get_minutes()
+    protected function get_minutes(): int
     {
         return $this->seconds / 60;
     }
@@ -288,7 +288,7 @@ class Article
     public $title;
     public $slug;
 
-    public function __construct($title, $slug = null)
+    public function __construct(string $title, string $slug = null)
     {
         $this->title = $title;
 
@@ -302,9 +302,9 @@ class Article
         }
     }
 
-    protected function get_slug()
+    protected function get_slug(): string
     {
-        return \ICanBoogie\normalize($this->slug);
+        return \ICanBoogie\normalize($this->title);
     }
 }
 
@@ -351,7 +351,7 @@ class Article
         $this->created_at = $datetime;
     }
 
-    protected function get_created_at()
+    protected function get_created_at(): DateTime
     {
         $datetime = $this->created_at;
 
@@ -410,7 +410,7 @@ class PseudoUniqID
 {
     use AccessorTrait;
 
-    protected function lazy_get_pseudo_uniqid()
+    protected function lazy_get_pseudo_uniqid(): string
     {
         return uniqid();
     }
@@ -553,7 +553,7 @@ echo $a->camelProperty;   // value
 
 ## Requirements
 
-The package requires PHP 5.6 or later.
+The package requires PHP 7.1 or later.
 
 
 

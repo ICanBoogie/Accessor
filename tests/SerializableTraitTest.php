@@ -17,6 +17,7 @@ use ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedPropertiesCamel;
 use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetter;
 use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetterAndForcedExport;
 use ICanBoogie\Accessor\SerializableTraitTest\VirtualProperty;
+use const DATE_RFC3339_EXTENDED;
 
 class SerializableTraitTest extends \PHPUnit\Framework\TestCase
 {
@@ -78,12 +79,13 @@ class SerializableTraitTest extends \PHPUnit\Framework\TestCase
 	public function test_serialize()
 	{
 		$a = new DateTimeProperty;
-		$now = new \DateTime;
-		$a->datetime = $now;
+		$a->datetime = new \DateTime;
 		$b = unserialize(serialize($a));
 
-		$this->assertEquals($a, $b);
-		$this->assertEquals($now, $b->datetime);
+		$this->assertEquals(
+			$a->datetime->format(DATE_RFC3339_EXTENDED),
+			$b->datetime->format(DATE_RFC3339_EXTENDED)
+		);
 	}
 
 	public function test_should_discard_property_with_getter_during_sleep()

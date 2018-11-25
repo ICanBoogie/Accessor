@@ -18,10 +18,7 @@ use function ucfirst;
  */
 trait FormatAsCamel
 {
-	/**
-	 * @inheritdoc
-	 */
-	static public function accessor_format($property, $type, $lazy = HasAccessor::ACCESSOR_IS_NOT_LAZY)
+	static public function accessor_format(string $property, string $type, string $lazy = HasAccessor::ACCESSOR_IS_NOT_LAZY): string
 	{
 		$format = $type . ucfirst($property);
 

@@ -1,8 +1,8 @@
 # customization
 
 PACKAGE_NAME = icanboogie/accessor
-PACKAGE_VERSION = 2.0
-PHPUNIT_VERSION = phpunit-5.phar
+PACKAGE_VERSION = 3.0
+PHPUNIT_VERSION = phpunit-7.5.phar
 PHPUNIT = build/$(PHPUNIT_VERSION)
 
 # do not edit the following lines

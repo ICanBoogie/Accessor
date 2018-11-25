@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Accessor;
 
+use ReflectionException;
 use function array_combine;
 use function array_keys;
 use function get_object_vars;
@@ -18,38 +19,23 @@ use function get_object_vars;
 /**
  * Improves serialization of objects, exporting façade properties and removing properties for
  * which lazy getters are defined.
+ *
+ * @see HasAccessor
  */
-trait SerializableTrait /* implements HasAccessor */
+trait SerializableTrait
 {
 	/**
-	 * @inheritdoc
-	 */
-	abstract /*static*/ public function accessor_format($property, $type, $lazy = HasAccessor::ACCESSOR_IS_NOT_LAZY);
-
-	/**
-	 * @inheritdoc
+	 * @throws ReflectionException
 	 */
 	public function __sleep()
 	{
 		return $this->accessor_sleep();
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	public function __wakeup()
 	{
 		$this->accessor_wakeup();
 	}
-
-	/**
-	 * Whether an object has a method.
-	 *
-	 * @param string $method
-	 *
-	 * @return bool `true` if the object has a method, `false` otherwise.
-	 */
-	abstract protected function has_method($method);
 
 	/**
 	 * The method returns an array of key/key pairs.
@@ -60,11 +46,9 @@ trait SerializableTrait /* implements HasAccessor */
 	 *
 	 * Note that façade properties are also included.
 	 *
-	 * @return array
-	 *
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
-	private function accessor_sleep()
+	private function accessor_sleep(): array
 	{
 		$properties = array_keys(get_object_vars($this));
 
@@ -76,14 +60,14 @@ trait SerializableTrait /* implements HasAccessor */
 			{
 				if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY)))
 				{
-					unset($properties[$property]);
+					unset($properties[ $property ]);
 				}
 			}
 		}
 
 		foreach (AccessorReflection::resolve_facade_properties($this) as $name => $property)
 		{
-			$properties[$name] = "\x00" . $property->class . "\x00" . $name;
+			$properties[ $name ] = "\x00" . $property->class . "\x00" . $name;
 		}
 
 		return $properties;
@@ -93,7 +77,7 @@ trait SerializableTrait /* implements HasAccessor */
 	 * Unsets null properties for which a lazy getter is defined so that it is called when
 	 * the property is accessed.
 	 */
-	private function accessor_wakeup()
+	private function accessor_wakeup(): void
 	{
 		$properties = get_object_vars($this);
 
