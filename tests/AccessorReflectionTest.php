@@ -14,7 +14,7 @@ namespace ICanBoogie\Accessor;
 use ICanBoogie\Accessor\AccessorReflectionTest\FacadeProperty;
 use ICanBoogie\Accessor\AccessorReflectionTest\PrivateProperty;
 
-class AccessorReflectionTest extends \PHPUnit_Framework_TestCase
+class AccessorReflectionTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_resolve_private_properties()
 	{
@@ -25,7 +25,7 @@ class AccessorReflectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertCount(1, $properties);
 		$this->assertEquals('private', $properties[0]->name);
 
-		$class_properties = AccessorReflection::resolve_private_properties('ICanBoogie\Accessor\AccessorReflectionTest\PrivateProperty');
+		$class_properties = AccessorReflection::resolve_private_properties(AccessorReflectionTest\PrivateProperty::class);
 
 		$this->assertEquals($properties, $class_properties);
 	}
@@ -38,9 +38,9 @@ class AccessorReflectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertCount(1, $properties);
 		$this->assertArrayHasKey('facade', $properties);
-		$this->assertInstanceOf('ReflectionProperty', $properties['facade']);
+		$this->assertInstanceOf(\ReflectionProperty::class, $properties['facade']);
 
-		$class_properties = AccessorReflection::resolve_facade_properties('ICanBoogie\Accessor\AccessorReflectionTest\FacadeProperty');
+		$class_properties = AccessorReflection::resolve_facade_properties(AccessorReflectionTest\FacadeProperty::class);
 
 		$this->assertEquals($properties, $class_properties);
 	}

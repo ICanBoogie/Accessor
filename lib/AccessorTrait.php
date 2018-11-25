@@ -14,6 +14,10 @@ namespace ICanBoogie\Accessor;
 use ICanBoogie\PropertyNotDefined;
 use ICanBoogie\PropertyNotReadable;
 use ICanBoogie\PropertyNotWritable;
+use function array_keys;
+use function get_object_vars;
+use function method_exists;
+use function property_exists;
 
 /**
  * Implements ICanBoogie's accessor pattern.
@@ -148,10 +152,9 @@ trait AccessorTrait
 	 */
 	private function assert_property_is_readable($property)
 	{
-		$reflexion_class = new \ReflectionClass($this);
-
 		try
 		{
+			$reflexion_class = new \ReflectionClass($this);
 			$reflexion_property = $reflexion_class->getProperty($property);
 
 			if (!$reflexion_property->isPublic())
@@ -166,7 +169,7 @@ trait AccessorTrait
 			#
 		}
 
-		$this->assert_no_accessor($property, HasAccessor::ACCESSOR_TYPE_SETTER, 'ICanBoogie\PropertyNotReadable');
+		$this->assert_no_accessor($property, HasAccessor::ACCESSOR_TYPE_SETTER, PropertyNotReadable::class);
 
 		$properties = array_keys(get_object_vars($this));
 
@@ -201,7 +204,7 @@ trait AccessorTrait
 			return;
 		}
 
-		$this->assert_no_accessor($property, HasAccessor::ACCESSOR_TYPE_GETTER, 'ICanBoogie\PropertyNotWritable');
+		$this->assert_no_accessor($property, HasAccessor::ACCESSOR_TYPE_GETTER, PropertyNotWritable::class);
 	}
 
 	/**

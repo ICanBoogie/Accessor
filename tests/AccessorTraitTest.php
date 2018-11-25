@@ -29,7 +29,7 @@ use ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyProtectedProperty;
 use ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyVirtualProperty;
 use ICanBoogie\PropertyNotDefined;
 
-class AccessorTraitTest extends \PHPUnit_Framework_TestCase
+class AccessorTraitTest extends \PHPUnit\Framework\TestCase
 {
 	/*
 	 * Undefined property
@@ -196,9 +196,9 @@ class AccessorTraitTest extends \PHPUnit_Framework_TestCase
 	public function test_type_control()
 	{
 		$a = new TypeControl;
-		$this->assertInstanceOf('DateTime', $a->datetime);
+		$this->assertInstanceOf(\DateTime::class, $a->datetime);
 		$a->datetime = 'now';
-		$this->assertInstanceOf('DateTime', $a->datetime);
+		$this->assertInstanceOf(\DateTime::class, $a->datetime);
 	}
 
 	/*

@@ -18,7 +18,7 @@ use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetter;
 use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetterAndForcedExport;
 use ICanBoogie\Accessor\SerializableTraitTest\VirtualProperty;
 
-class SerializableTraitTest extends \PHPUnit_Framework_TestCase
+class SerializableTraitTest extends \PHPUnit\Framework\TestCase
 {
 	public function test_sleep()
 	{

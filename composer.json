@@ -2,7 +2,11 @@
 	"name": "icanboogie/accessor",
 	"type": "library",
 	"description": "Implements getters/setters, read-only/write-only properties, volatile defaults, type control…",
-	"keywords": [ "getter", "setter", "facade" ],
+	"keywords": [
+		"getter",
+		"setter",
+		"facade"
+	],
 	"homepage": "https://icanboogie.org/",
 	"license": "BSD-3-Clause",
 	"authors": [
@@ -10,23 +14,25 @@
 			"name": "Olivier Laviale",
 			"email": "olivier.laviale@gmail.com",
 			"homepage": "https://olvlvl.com/",
-			"role" : "Developer"
+			"role": "Developer"
 		}
 	],
-
 	"support": {
 		"issues": "https://github.com/ICanBoogie/Accessor/issues",
 		"source": "https://github.com/ICanBoogie/Accessor"
 	},
-
 	"require": {
-		"php": ">=5.4",
+		"php": ">=5.6",
 		"icanboogie/common": "^1.2"
 	},
-
 	"autoload": {
 		"psr-4": {
 			"ICanBoogie\\Accessor\\": "lib"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"ICanBoogie\\Accessor\\": "tests"
 		}
 	}
 }

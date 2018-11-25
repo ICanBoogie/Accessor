@@ -11,14 +11,24 @@
 
 namespace ICanBoogie\Accessor;
 
+use function array_merge;
+use function get_class;
+use function is_object;
+use function method_exists;
+
 /**
  * Provides methods to reflect on accessor.
  */
-class AccessorReflection
+final class AccessorReflection
 {
 	static private $private_properties_cache = [];
 	static private $facade_properties_cache = [];
 
+	/**
+	 * @param string|object $reference
+	 *
+	 * @return string
+	 */
 	static private function resolve_reference($reference)
 	{
 		if (is_object($reference))
@@ -36,14 +46,17 @@ class AccessorReflection
 	 * @param string|object $reference Class name or instance.
 	 *
 	 * @return \ReflectionProperty[]
+	 *
+	 * @throws \ReflectionException
 	 */
 	static public function resolve_private_properties($reference)
 	{
 		$reference = self::resolve_reference($reference);
+		$cached = &self::$private_properties_cache[$reference];
 
-		if (isset(self::$private_properties_cache[$reference]))
+		if ($cached)
 		{
-			return self::$private_properties_cache[$reference];
+			return $cached;
 		}
 
 		$private_properties = [];
@@ -55,8 +68,8 @@ class AccessorReflection
 			$class_reflection = $class_reflection->getParentClass();
 		}
 
-		return self::$private_properties_cache[$reference] = $private_properties
-			? call_user_func_array('array_merge', $private_properties)
+		return $cached = $private_properties
+			? array_merge(...$private_properties)
 			: [];
 	}
 
@@ -69,14 +82,17 @@ class AccessorReflection
 	 * @param string|HasAccessor $reference Class name or instance implementing {@link HasAccessor}.
 	 *
 	 * @return \ReflectionProperty[]
+	 *
+	 * @throws \ReflectionException
 	 */
 	static public function resolve_facade_properties($reference)
 	{
 		$reference = self::resolve_reference($reference);
+		$facade_properties = &self::$facade_properties_cache[$reference];
 
-		if (isset(self::$facade_properties_cache[$reference]))
+		if ($facade_properties)
 		{
-			return self::$facade_properties_cache[$reference];
+			return $facade_properties;
 		}
 
 		$facade_properties = [];
@@ -94,6 +110,6 @@ class AccessorReflection
 			$facade_properties[$name] = $property;
 		}
 
-		return self::$facade_properties_cache[$reference] = $facade_properties;
+		return $facade_properties;
 	}
 }

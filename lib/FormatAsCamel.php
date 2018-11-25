@@ -11,6 +11,8 @@
 
 namespace ICanBoogie\Accessor;
 
+use function ucfirst;
+
 /**
  * Formats accessor method using CamelCase.
  */

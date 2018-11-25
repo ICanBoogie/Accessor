@@ -11,6 +11,10 @@
 
 namespace ICanBoogie\Accessor;
 
+use function array_combine;
+use function array_keys;
+use function get_object_vars;
+
 /**
  * Improves serialization of objects, exporting façade properties and removing properties for
  * which lazy getters are defined.
@@ -57,6 +61,8 @@ trait SerializableTrait /* implements HasAccessor */
 	 * Note that façade properties are also included.
 	 *
 	 * @return array
+	 *
+	 * @throws \ReflectionException
 	 */
 	private function accessor_sleep()
 	{
@@ -87,7 +93,7 @@ trait SerializableTrait /* implements HasAccessor */
 	 * Unsets null properties for which a lazy getter is defined so that it is called when
 	 * the property is accessed.
 	 */
-	public function accessor_wakeup()
+	private function accessor_wakeup()
 	{
 		$properties = get_object_vars($this);
 

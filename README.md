@@ -39,8 +39,7 @@ is not accessible. This is most notably important to remember when using lazy lo
 which creates the associated property when it is invoked.
 
 __Another thing to remember__: You don't _need_ to use getter/setter for everything and their cats,
-PHP is no Java, and it's okay to have public properties. With great power comes great
-responsibility. So enjoy getters/setters, but please use them wisely.
+PHP is no Java, and it's okay to have public properties.
 
 
 
@@ -63,12 +62,12 @@ use ICanBoogie\Accessor\AccessorTrait;
  */
 class ReadOnlyProperty
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	protected function get_property()
-	{
-		return 'value';
-	}
+    protected function get_property()
+    {
+        return 'value';
+    }
 }
 
 $a = new ReadOnlyProperty;
@@ -88,14 +87,14 @@ use ICanBoogie\Accessor\AccessorTrait;
  */
 class ReadOnlyProperty
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	private $property = "value";
+    private $property = "value";
 
-	protected function get_property()
-	{
-		return $this->property;
-	}
+    protected function get_property()
+    {
+        return $this->property;
+    }
 }
 
 $a = new ReadOnlyProperty;
@@ -119,7 +118,7 @@ use ICanBoogie\Accessor\AccessorTrait;
 
 class Connection
 {
-	…
+    // …
 }
 
 /**
@@ -127,25 +126,25 @@ class Connection
  */
 class Model
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	/**
-	 * @var Connection
-	 */
-	private $connection;
-	
-	protected function get_connection()
-	{
-		return $this->connection;
-	}
-	
-	protected $options;
-	
-	public function __construct(Connection $connection, array $options)
-	{
-		$this->connection = $connection;
-		$this->options = $options;
-	}
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    protected function get_connection()
+    {
+        return $this->connection;
+    }
+
+    protected $options;
+
+    public function __construct(Connection $connection, array $options)
+    {
+        $this->connection = $connection;
+        $this->options = $options;
+    }
 }
 
 $connection = new Connection(…);
@@ -176,12 +175,12 @@ use ICanBoogie\Accessor\AccessorTrait;
  */
 class WriteOnlyProperty
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	protected function set_property($value)
-	{
-		// …
-	}
+    protected function set_property($value)
+    {
+        // …
+    }
 }
 
 $a = new WriteOnlyProperty;
@@ -201,14 +200,14 @@ use ICanBoogie\Accessor\AccessorTrait;
  */
 class WriteOnlyProperty
 {
-	use AccessorTrait;
-	
-	private $property = 'value';
+    use AccessorTrait;
+    
+    private $property = 'value';
 
-	protected function set_property($value)
-	{
-		$this->property = $value;
-	}
+    protected function set_property($value)
+    {
+        $this->property = $value;
+    }
 }
 
 $a = new WriteOnlyProperty;
@@ -238,19 +237,19 @@ use ICanBoogie\Accessor\AccessorTrait;
  */
 class Time
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $seconds;
+    public $seconds;
 
-	protected function set_minutes($minutes)
-	{
-		$this->seconds = $minutes * 60;
-	}
+    protected function set_minutes($minutes)
+    {
+        $this->seconds = $minutes * 60;
+    }
 
-	protected function get_minutes()
-	{
-		return $this->seconds / 60;
-	}
+    protected function get_minutes()
+    {
+        return $this->seconds / 60;
+    }
 }
 
 $time = new Time;
@@ -284,29 +283,29 @@ use ICanBoogie\Accessor\AccessorTrait;
 
 class Article
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $title;
-	public $slug;
+    public $title;
+    public $slug;
 
-	public function __construct($title, $slug = null)
-	{
-		$this->title = $tile;
+    public function __construct($title, $slug = null)
+    {
+        $this->title = $title;
 
-		if ($slug)
-		{
-			$this->slug = $slug;
-		}
-		else
-		{
-			unset($this->slug);
-		}
-	}
+        if ($slug)
+        {
+            $this->slug = $slug;
+        }
+        else
+        {
+            unset($this->slug);
+        }
+    }
 
-	protected function get_slug()
-	{
-		return \ICanBoogie\normalize($this->slug);
-	}
+    protected function get_slug()
+    {
+        return \ICanBoogie\normalize($this->slug);
+    }
 }
 
 $article = new Article("This is my article");
@@ -343,26 +342,26 @@ use ICanBoogie\DateTime;
  */
 class Article
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	private $created_at;
+    private $created_at;
 
-	protected function set_created_at($datetime)
-	{
-		$this->created_at = $datetime;
-	}
+    protected function set_created_at($datetime)
+    {
+        $this->created_at = $datetime;
+    }
 
-	protected function get_created_at()
-	{
-		$datetime = $this->created_at;
+    protected function get_created_at()
+    {
+        $datetime = $this->created_at;
 
-		if ($datetime instanceof DateTime)
-		{
-			return $datetime;
-		}
+        if ($datetime instanceof DateTime)
+        {
+            return $datetime;
+        }
 
-		return $this->created_at = ($datetime === null) ? DateTime::none() : new DateTime($datetime, 'utc');
-	}
+        return $this->created_at = ($datetime === null) ? DateTime::none() : new DateTime($datetime, 'utc');
+    }
 }
 ```
 
@@ -409,12 +408,12 @@ use ICanBoogie\Accessor\AccessorTrait;
  */
 class PseudoUniqID
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	protected function lazy_get_pseudo_uniqid()
-	{
-		return uniqid();
-	}
+    protected function lazy_get_pseudo_uniqid()
+    {
+        return uniqid();
+    }
 }
 
 $a = new PseudoUniqID;
@@ -449,7 +448,7 @@ to get a value, but unlike read-only properties lazy properties can be written t
 $a = new PseudoUniqID;
 
 echo $a->pseudo_uniqid;   // a009b3a984a50
-$a->pseudo_uniqid = 123456
+$a->pseudo_uniqid = 123456;
 echo $a->pseudo_uniqid;   // 123456
 
 unset($a->pseudo_uniqid);
@@ -474,27 +473,27 @@ a _plain_ getter into an awesome getter:
 ```php
 <?php
 
-use ICanBoogie\Accessor\AccessorTrait
+use ICanBoogie\Accessor\AccessorTrait;
 
 /**
  * @property-read string $property
  */
 class Plain
 {
-	use AccessorTrait;
-	
-	protected function get_property()
-	{
-		return "value";
-	}
+    use AccessorTrait;
+    
+    protected function get_property()
+    {
+        return "value";
+    }
 }
 
-class Awesome extends
+class Awesome extends Plain
 {
-	protected function get_property()
-	{
-		return "awesome " . parent::get_property();
-	}
+    protected function get_property()
+    {
+        return "awesome " . parent::get_property();
+    }
 }
 
 $plain = new Plain;
@@ -523,19 +522,19 @@ use ICanBoogie\Accessor\AccessorCamelTrait;
  */
 class CamelExample
 {
-	use AccessorCamelTrait;
-	
-	private $camelProperty;
-	
-	protected function getCamelProperty()
-	{
-		return $this->camelProperty;
-	}
-	
-	public function __construct($value)
-	{
-		$this->camelProperty = $value;
-	}
+    use AccessorCamelTrait;
+    
+    private $camelProperty;
+    
+    protected function getCamelProperty()
+    {
+        return $this->camelProperty;
+    }
+    
+    public function __construct($value)
+    {
+        $this->camelProperty = $value;
+    }
 }
 
 $a = new CamelExample("value");
@@ -554,7 +553,7 @@ echo $a->camelProperty;   // value
 
 ## Requirements
 
-The package requires PHP 5.4 or later.
+The package requires PHP 5.6 or later.
 
 
 
@@ -564,24 +563,9 @@ The package requires PHP 5.4 or later.
 
 The recommended way to install this package is through [Composer](http://getcomposer.org/):
 
-```
+```bash
 $ composer require icanboogie/accessor
 ```
-
-The following packages are required, you might want to check them out:
-
-* [icanboogie/common](https://packagist.org/packages/icanboogie/common)
-
-
-
-
-
-### Cloning the repository
-
-The package is [available on GitHub](https://github.com/ICanBoogie/Accessor),
-its repository can be cloned with the following command line:
-
-	$ git clone https://github.com/ICanBoogie/Accessor.git
 
 
 
@@ -607,6 +591,11 @@ The command installs dependencies as required. The `make test-coverage` command 
 also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with
 the `make clean` command.
 
+To ensure tests are running with the minimum requirements, it is advised to run them inside the
+provided container. The container is started with the `make test-container` command. Once inside the
+container, `make test` and `make test-coverage` can be used. Xdebug is available in the container
+and ready for debugging, it uses the servername `accessor-tests` and the absolute path `/app`.
+
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 [![Build Status](https://img.shields.io/travis/ICanBoogie/Accessor.svg)](https://travis-ci.org/ICanBoogie/Accessor)
@@ -624,11 +613,11 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[documentation]:       https://icanboogie.org/api/accessor/1.0/
-[AccessorCamelTrait]:  https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.AccessorCamelTrait.html
-[AccessorTrait]:       https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.AccessorTrait.html
-[FormatAsCamel]:       https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.FormatAsCamel.html
-[HasAccessor]:         https://icanboogie.org/api/accessor/1.0/class-ICanBoogie.Accessor.HasAccessor.html
+[documentation]:       https://icanboogie.org/api/accessor/master/
+[AccessorCamelTrait]:  https://icanboogie.org/api/accessor/master/class-ICanBoogie.Accessor.AccessorCamelTrait.html
+[AccessorTrait]:       https://icanboogie.org/api/accessor/master/class-ICanBoogie.Accessor.AccessorTrait.html
+[FormatAsCamel]:       https://icanboogie.org/api/accessor/master/class-ICanBoogie.Accessor.FormatAsCamel.html
+[HasAccessor]:         https://icanboogie.org/api/accessor/master/class-ICanBoogie.Accessor.HasAccessor.html
 [PropertyNotWritable]: https://icanboogie.org/api/common/1.2/class-ICanBoogie.PropertyNotWritable.html
 [PropertyNotReadable]: https://icanboogie.org/api/common/1.2/class-ICanBoogie.PropertyNotReadable.html
 [ICanBoogie]:          https://icanboogie.org
