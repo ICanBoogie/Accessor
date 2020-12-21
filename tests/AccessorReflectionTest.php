@@ -13,10 +13,11 @@ namespace ICanBoogie\Accessor;
 
 use ICanBoogie\Accessor\AccessorReflectionTest\FacadeProperty;
 use ICanBoogie\Accessor\AccessorReflectionTest\PrivateProperty;
+use PHPUnit\Framework\TestCase;
 
-class AccessorReflectionTest extends \PHPUnit\Framework\TestCase
+class AccessorReflectionTest extends TestCase
 {
-	public function test_resolve_private_properties()
+	public function test_resolve_private_properties(): void
 	{
 		$a = new PrivateProperty;
 
@@ -30,7 +31,7 @@ class AccessorReflectionTest extends \PHPUnit\Framework\TestCase
 		$this->assertEquals($properties, $class_properties);
 	}
 
-	public function test_resolve_facade_properties()
+	public function test_resolve_facade_properties(): void
 	{
 		$a = new FacadeProperty;
 

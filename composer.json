@@ -22,8 +22,12 @@
 		"source": "https://github.com/ICanBoogie/Accessor"
 	},
 	"require": {
-		"php": ">=7.1",
+		"php": ">=7.2.5",
 		"icanboogie/common": "^1.2"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^0.12.63",
+		"phpunit/phpunit": "^8.5"
 	},
 	"autoload": {
 		"psr-4": {
@@ -34,5 +38,8 @@
 		"psr-4": {
 			"ICanBoogie\\Accessor\\": "tests"
 		}
+	},
+	"config": {
+		"sort-packages": true
 	}
 }

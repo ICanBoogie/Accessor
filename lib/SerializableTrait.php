@@ -12,6 +12,7 @@
 namespace ICanBoogie\Accessor;
 
 use ReflectionException;
+
 use function array_combine;
 use function array_keys;
 use function get_object_vars;

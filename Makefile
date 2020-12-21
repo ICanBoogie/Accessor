@@ -1,9 +1,8 @@
 # customization
 
 PACKAGE_NAME = icanboogie/accessor
-PACKAGE_VERSION = 3.0
-PHPUNIT_VERSION = phpunit-7.5.phar
-PHPUNIT = build/$(PHPUNIT_VERSION)
+PACKAGE_VERSION = 4.0
+PHPUNIT = vendor/bin/phpunit
 
 # do not edit the following lines
 
@@ -15,12 +14,7 @@ vendor:
 
 # testing
 
-test-dependencies: vendor $(PHPUNIT)
-
-$(PHPUNIT):
-	mkdir -p build
-	wget https://phar.phpunit.de/$(PHPUNIT_VERSION) -O $(PHPUNIT)
-	chmod +x $(PHPUNIT)
+test-dependencies: vendor
 
 test-container:
 	@docker-compose run --rm app sh

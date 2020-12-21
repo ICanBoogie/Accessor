@@ -14,6 +14,7 @@ namespace ICanBoogie\Accessor;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionProperty;
+
 use function array_merge;
 use function get_class;
 use function is_object;
@@ -24,11 +25,20 @@ use function method_exists;
  */
 final class AccessorReflection
 {
+	/**
+	 * @var array<class-string, ReflectionProperty[]>
+	 */
 	static private $private_properties_cache = [];
+
+	/**
+	 * @var array<class-string, ReflectionProperty[]>
+	 */
 	static private $facade_properties_cache = [];
 
 	/**
-	 * @param string|object $reference
+	 * @param class-string|object $reference
+	 *
+	 * @return class-string
 	 */
 	static private function resolve_reference($reference): string
 	{
@@ -44,7 +54,7 @@ final class AccessorReflection
 	 * Returns the private properties defined by the reference, this includes the private
 	 * properties defined by the whole class inheritance.
 	 *
-	 * @param string|object $reference Class name or instance.
+	 * @param class-string|object $reference Class name or instance.
 	 *
 	 * @return ReflectionProperty[]
 	 *

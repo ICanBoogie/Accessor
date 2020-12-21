@@ -17,6 +17,7 @@ use ICanBoogie\PropertyNotWritable;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionObject;
+
 use function array_keys;
 use function get_class;
 use function get_object_vars;

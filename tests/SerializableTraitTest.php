@@ -17,11 +17,13 @@ use ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedPropertiesCamel;
 use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetter;
 use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetterAndForcedExport;
 use ICanBoogie\Accessor\SerializableTraitTest\VirtualProperty;
+use PHPUnit\Framework\TestCase;
+
 use const DATE_RFC3339_EXTENDED;
 
-class SerializableTraitTest extends \PHPUnit\Framework\TestCase
+class SerializableTraitTest extends TestCase
 {
-	public function test_sleep()
+	public function test_sleep(): void
 	{
 		$a = new InheritedMixedProperties;
 		$properties = $a->__sleep();
@@ -39,7 +41,7 @@ class SerializableTraitTest extends \PHPUnit\Framework\TestCase
 		$this->assertArrayNotHasKey('private_with_lazy_getter', $properties);
 	}
 
-	public function test_sleep_camel()
+	public function test_sleep_camel(): void
 	{
 		$a = new InheritedMixedPropertiesCamel;
 		$properties = $a->__sleep();
@@ -57,7 +59,7 @@ class SerializableTraitTest extends \PHPUnit\Framework\TestCase
 		$this->assertArrayNotHasKey('privateWithLazyGetter', $properties);
 	}
 
-	public function test_virtual_properties_should_not_be_exported()
+	public function test_virtual_properties_should_not_be_exported(): void
 	{
 		$a = new VirtualProperty;
 
@@ -76,7 +78,7 @@ class SerializableTraitTest extends \PHPUnit\Framework\TestCase
 		$this->assertArrayNotHasKey('minutes', $a->__sleep());
 	}
 
-	public function test_serialize()
+	public function test_serialize(): void
 	{
 		$a = new DateTimeProperty;
 		$a->datetime = new \DateTime;
@@ -88,18 +90,18 @@ class SerializableTraitTest extends \PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function test_should_discard_property_with_getter_during_sleep()
+	public function test_should_discard_property_with_getter_during_sleep(): void
 	{
 		$a = new PropertyWithGetter;
 		$serialized = serialize($a);
-		$this->assertNotContains("property", $serialized);
+		$this->assertStringNotContainsString("property", $serialized);
 	}
 
-	public function test_should_discard_property_with_getter_during_wakeup()
+	public function test_should_discard_property_with_getter_during_wakeup(): void
 	{
 		$a = new PropertyWithGetterAndForcedExport;
 		$serialized = serialize($a);
-		$this->assertContains("value", $serialized);
+		$this->assertStringContainsString("value", $serialized);
 		$unserialized = unserialize($serialized);
 		$this->assertArrayNotHasKey('property', (array) $unserialized);
 	}

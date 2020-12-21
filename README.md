@@ -1,10 +1,9 @@
 # Accessor
 
-[![Release](https://img.shields.io/packagist/v/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
-[![Build Status](https://img.shields.io/travis/ICanBoogie/Accessor.svg)](http://travis-ci.org/ICanBoogie/Accessor)
+[![Packagist](https://img.shields.io/packagist/v/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Accessor.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Accessor)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
-[![Packagist](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
+[![Downloads](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
 
 The **icanboogie/accessor** package allows classes to implement [ICanBoogie][]'s accessor
 design pattern. Using a combination of getters, setters, properties, and property visibilities,
@@ -102,7 +101,7 @@ echo $a->property;     // value
 $a->property = null;   // throws ICanBoogie\PropertyNotWritable
 ```
 
-### Protecting a _construct_ property 
+### Protecting a _construct_ property
 
 Read-only properties are often used to provide read access to a property that was provided
 during _construct_, which should stay unchanged during the life time of an instance.
@@ -201,7 +200,7 @@ use ICanBoogie\Accessor\AccessorTrait;
 class WriteOnlyProperty
 {
     use AccessorTrait;
-    
+
     private $property = 'value';
 
     protected function set_property($value)
@@ -481,7 +480,7 @@ use ICanBoogie\Accessor\AccessorTrait;
 class Plain
 {
     use AccessorTrait;
-    
+
     protected function get_property()
     {
         return "value";
@@ -523,14 +522,14 @@ use ICanBoogie\Accessor\AccessorCamelTrait;
 class CamelExample
 {
     use AccessorCamelTrait;
-    
+
     private $camelProperty;
-    
+
     protected function getCamelProperty()
     {
         return $this->camelProperty;
     }
-    
+
     public function __construct($value)
     {
         $this->camelProperty = $value;
@@ -553,7 +552,7 @@ echo $a->camelProperty;   // value
 
 ## Requirements
 
-The package requires PHP 7.1 or later.
+The package requires PHP 7.2 or later.
 
 
 
@@ -595,11 +594,6 @@ To ensure tests are running with the minimum requirements, it is advised to run 
 provided container. The container is started with the `make test-container` command. Once inside the
 container, `make test` and `make test-coverage` can be used. Xdebug is available in the container
 and ready for debugging, it uses the servername `accessor-tests` and the absolute path `/app`.
-
-The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
-
-[![Build Status](https://img.shields.io/travis/ICanBoogie/Accessor.svg)](https://travis-ci.org/ICanBoogie/Accessor)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
 
 
 
