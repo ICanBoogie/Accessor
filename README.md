@@ -1,6 +1,7 @@
 # Accessor
 
 [![Packagist](https://img.shields.io/packagist/v/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
+[![Build Status](https://img.shields.io/github/workflow/status/ICanBoogie/Accessor/test)](https://github.com/ICanBoogie/Accessor/actions?query=workflow%3Atest)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Accessor.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Accessor)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
 [![Downloads](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
