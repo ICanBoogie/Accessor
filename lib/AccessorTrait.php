@@ -38,6 +38,9 @@ trait AccessorTrait
 		return $this->accessor_get($property);
 	}
 
+	/**
+	 * @throws ReflectionException
+	 */
 	public function __set($property, $value)
 	{
 		$this->accessor_set($property, $value);
@@ -86,8 +89,8 @@ trait AccessorTrait
 	/**
 	 * Sets the value of an inaccessible property.
 	 *
-	 * The method is called because the property does not exists, its visibility is
-	 * _protected_ or _private_, or because although it is visible is was unset and is no
+	 * The method is called because the property does not exist, its visibility is
+	 * _protected_ or _private_, or because although it is visible it was unset and is no
 	 * longer accessible.
 	 *
 	 * A `set_<property>` method can be used the handle virtual properties, for instance a
