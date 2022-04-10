@@ -20,25 +20,24 @@ use ICanBoogie\Accessor\SerializableTrait;
  */
 class DateTimeProperty implements HasAccessor
 {
-	use AccessorTrait;
-	use SerializableTrait;
+    use AccessorTrait;
+    use SerializableTrait;
 
-	private $datetime;
+    private $datetime;
 
-	protected function set_datetime($datetime)
-	{
-		$this->datetime = $datetime;
-	}
+    protected function set_datetime($datetime)
+    {
+        $this->datetime = $datetime;
+    }
 
-	protected function get_datetime()
-	{
-		$datetime = $this->datetime;
+    protected function get_datetime()
+    {
+        $datetime = $this->datetime;
 
-		if ($datetime instanceof \DateTime)
-		{
-			return $datetime;
-		}
+        if ($datetime instanceof \DateTime) {
+            return $datetime;
+        }
 
-		return $this->datetime = $datetime === null ? new \DateTime('0000-00-00') : new \DateTime($datetime);
-	}
+        return $this->datetime = $datetime === null ? new \DateTime('0000-00-00') : new \DateTime($datetime);
+    }
 }

@@ -15,22 +15,22 @@ use ICanBoogie\Accessor\AccessorTrait;
 
 class LazySetProperty
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	protected $property;
+    protected $property;
 
-	protected function lazy_set_property($value)
-	{
-		return strtoupper($value);
-	}
+    protected function lazy_set_property($value)
+    {
+        return strtoupper($value);
+    }
 
-	protected function get_property()
-	{
-		return $this->property;
-	}
+    protected function get_property()
+    {
+        return $this->property;
+    }
 
-	public function __constructor()
-	{
-		unset($this->property);
-	}
+    public function __constructor()
+    {
+        unset($this->property);
+    }
 }

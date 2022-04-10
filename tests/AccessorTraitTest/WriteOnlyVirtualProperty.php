@@ -19,12 +19,12 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class WriteOnlyVirtualProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $another_property;
+    public $another_property;
 
-	protected function set_property($value)
-	{
-		$this->another_property = $value;
-	}
+    protected function set_property($value)
+    {
+        $this->another_property = $value;
+    }
 }

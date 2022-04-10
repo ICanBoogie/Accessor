@@ -17,45 +17,43 @@ use ICanBoogie\Accessor\SerializableTrait;
 
 class MixedPropertiesCamel
 {
-	use AccessorCamelTrait;
-	use SerializableTrait;
+    use AccessorCamelTrait;
+    use SerializableTrait;
 
-	public $public = 'public';
-	public $publicWithLazyGetter = 'publicWithLazyGetter';
+    public $public = 'public';
+    public $publicWithLazyGetter = 'publicWithLazyGetter';
 
-	protected function lazyGetPublicWithLazyGetter()
-	{
-		return 'VALUE: publicWithLazyGetter';
-	}
+    protected function lazyGetPublicWithLazyGetter()
+    {
+        return 'VALUE: publicWithLazyGetter';
+    }
 
-	protected $protected = 'protected';
-	protected $protectedWithGetter = 'protectedWithGetter';
-	protected $protectedWithSetter = 'protectedWithSetter';
-	protected $protectedWithGetterAndSetter = 'protectedWithGetterAndSetter';
-	protected $protectedWithLazyGetter = 'protectedWithLazyGetter';
+    protected $protected = 'protected';
+    protected $protectedWithGetter = 'protectedWithGetter';
+    protected $protectedWithSetter = 'protectedWithSetter';
+    protected $protectedWithGetterAndSetter = 'protectedWithGetterAndSetter';
+    protected $protectedWithLazyGetter = 'protectedWithLazyGetter';
 
-	protected function getProtectedWithGetter()
-	{
-		return 'VALUE: protectedWithGetter';
-	}
+    protected function getProtectedWithGetter()
+    {
+        return 'VALUE: protectedWithGetter';
+    }
 
-	protected function setProtectedWithSetter()
-	{
+    protected function setProtectedWithSetter()
+    {
+    }
 
-	}
+    protected function getProtectedWithGetterAndSetter()
+    {
+        return 'VALUE: protectedWithGetter';
+    }
 
-	protected function getProtectedWithGetterAndSetter()
-	{
-		return 'VALUE: protectedWithGetter';
-	}
+    protected function setProtectedWithGetterAndSetter()
+    {
+    }
 
-	protected function setProtectedWithGetterAndSetter()
-	{
-
-	}
-
-	protected function lazyGetProtectedWithLazyGetter()
-	{
-		return 'VALUE: protectedWithLazyGetter';
-	}
+    protected function lazyGetProtectedWithLazyGetter()
+    {
+        return 'VALUE: protectedWithLazyGetter';
+    }
 }

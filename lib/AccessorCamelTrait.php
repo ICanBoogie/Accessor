@@ -16,8 +16,7 @@ namespace ICanBoogie\Accessor;
  */
 trait AccessorCamelTrait
 {
-	use AccessorTrait, FormatAsCamel
-	{
-		FormatAsCamel::accessor_format insteadof AccessorTrait;
-	}
+    use AccessorTrait, FormatAsCamel {
+        FormatAsCamel::accessor_format insteadof AccessorTrait;
+    }
 }

@@ -15,19 +15,17 @@ use ICanBoogie\Accessor\AccessorTrait;
 
 class FacadeProperty
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	private $private;
+    private $private;
 
-	private $facade;
+    private $facade;
 
-	protected function set_facade()
-	{
+    protected function set_facade()
+    {
+    }
 
-	}
-
-	protected function get_facade()
-	{
-
-	}
+    protected function get_facade()
+    {
+    }
 }

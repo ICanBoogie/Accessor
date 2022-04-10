@@ -15,9 +15,9 @@ use ICanBoogie\Accessor\AccessorTrait;
 
 class PrivateProperty
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $public;
-	protected $protected;
-	private $private;
+    public $public;
+    protected $protected;
+    private $private;
 }

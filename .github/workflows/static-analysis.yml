@@ -1,27 +1,20 @@
-name: analyze
+name: static-analysis
 
 on:
-  push:
-  pull_request:
+- push
+- pull_request
 
 jobs:
   phpstan:
-    name: phpstan
+    name: PHPStan
     runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        php-version:
-        - "7.2"
-        - "7.4"
-        - "8.1"
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install PHP
       uses: shivammathur/setup-php@v2
       with:
-        coverage: none
-        php-version: "${{ matrix.php-version }}"
+        php-version: "8.0"
         ini-values: memory_limit=-1
         tools: composer:v2
     - name: Cache dependencies
@@ -30,11 +23,10 @@ jobs:
         path: |
           ~/.composer/cache
           vendor
-        key: "php-${{ matrix.php-version }}"
-        restore-keys: "php-${{ matrix.php-version }}"
+        key: phpstan-deps
 
     - name: Install dependencies
       run: composer install --no-interaction --no-progress
 
-    - name: Analyze
-      run: vendor/bin/phpstan analyse
+    - name: Run PHPStan
+      run: vendor/bin/phpstan

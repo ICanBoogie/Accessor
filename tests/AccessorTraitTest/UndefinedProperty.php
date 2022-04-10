@@ -16,5 +16,5 @@ use ICanBoogie\Accessor\HasAccessor;
 
 class UndefinedProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 }

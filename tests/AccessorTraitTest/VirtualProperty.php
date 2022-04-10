@@ -19,17 +19,17 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class VirtualProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $seconds = 0;
+    public $seconds = 0;
 
-	protected function set_minutes($minute)
-	{
-		$this->seconds = $minute * 60;
-	}
+    protected function set_minutes($minute)
+    {
+        $this->seconds = $minute * 60;
+    }
 
-	protected function get_minutes()
-	{
-		return $this->seconds / 60;
-	}
+    protected function get_minutes()
+    {
+        return $this->seconds / 60;
+    }
 }

@@ -19,9 +19,9 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class PropertyList implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $public;
-	protected $protected;
-	private $private;
+    public $public;
+    protected $protected;
+    private $private;
 }

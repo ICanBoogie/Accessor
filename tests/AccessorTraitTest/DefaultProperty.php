@@ -19,12 +19,12 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class DefaultProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $value;
+    public $value;
 
-	protected function get_value()
-	{
-		return "default-value";
-	}
+    protected function get_value()
+    {
+        return "default-value";
+    }
 }

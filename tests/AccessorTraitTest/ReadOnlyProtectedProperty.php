@@ -19,12 +19,12 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class ReadOnlyProtectedProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	protected $property = 'success';
+    protected $property = 'success';
 
-	protected function get_property()
-	{
-		return $this->property;
-	}
+    protected function get_property()
+    {
+        return $this->property;
+    }
 }

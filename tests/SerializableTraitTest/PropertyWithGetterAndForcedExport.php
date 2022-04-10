@@ -17,8 +17,8 @@ use ICanBoogie\Accessor\SerializableTrait;
 
 class B implements HasAccessor
 {
-	use AccessorTrait;
-	use SerializableTrait;
+    use AccessorTrait;
+    use SerializableTrait;
 }
 
 /**
@@ -26,19 +26,19 @@ class B implements HasAccessor
  */
 class PropertyWithGetterAndForcedExport extends B
 {
-	public $property = "value";
+    public $property = "value";
 
-	public function __sleep()
-	{
-		return parent::__sleep() + [
+    public function __sleep()
+    {
+        return parent::__sleep() + [
 
-			'property' => 'property'
+            'property' => 'property'
 
-		];
-	}
+        ];
+    }
 
-	protected function lazy_get_property()
-	{
-		return "lazy_value";
-	}
+    protected function lazy_get_property()
+    {
+        return "lazy_value";
+    }
 }

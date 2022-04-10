@@ -18,10 +18,13 @@ use function ucfirst;
  */
 trait FormatAsCamel
 {
-	static public function accessor_format(string $property, string $type, string $lazy = HasAccessor::ACCESSOR_IS_NOT_LAZY): string
-	{
-		$format = $type . ucfirst($property);
+    public static function accessor_format(
+        string $property,
+        string $type,
+        string $lazy = HasAccessor::ACCESSOR_IS_NOT_LAZY
+    ): string {
+        $format = $type . ucfirst($property);
 
-		return $lazy ? $lazy . ucfirst($format) : $format;
-	}
+        return $lazy ? $lazy . ucfirst($format) : $format;
+    }
 }

@@ -1,7 +1,6 @@
 # Accessor
 
 [![Packagist](https://img.shields.io/packagist/v/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
-[![Build Status](https://img.shields.io/github/workflow/status/ICanBoogie/Accessor/test)](https://github.com/ICanBoogie/Accessor/actions?query=workflow%3Atest)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Accessor.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Accessor)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
 [![Downloads](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
@@ -12,6 +11,12 @@ you can create read-only properties, write-only properties, virtual properties;
 and implement defaults, type control, guarding, and lazy loading.
 
 
+
+#### Installation
+
+```bash
+composer require icanboogie/inflector
+```
 
 
 
@@ -549,37 +554,26 @@ echo $a->camelProperty;   // value
 
 
 
+## Continuous Integration
 
+The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/Inflector/actions).
 
-## Requirements
-
-The package requires PHP 7.2 or later.
-
-
-
-
-
-## Installation
-
-The recommended way to install this package is through [Composer](http://getcomposer.org/):
-
-```bash
-$ composer require icanboogie/accessor
-```
+[![Tests](https://github.com/ICanBoogie/Accessor/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/Accessor/actions?query=workflow%3Atest)
+[![Static Analysis](https://github.com/ICanBoogie/Accessor/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/Accessor/actions?query=workflow%3Astatic-analysis)
+[![Code Style](https://github.com/ICanBoogie/Accessor/workflows/code-style/badge.svg?branch=master)](https://github.com/ICanBoogie/Accessor/actions?query=workflow%3Acode-style)
 
 
 
+## Code of Conduct
+
+This project adheres to a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project and its
+community, you are expected to uphold this code.
 
 
-## Documentation
 
-The package is documented as part of the [ICanBoogie][] framework [documentation][].
-You can generate the documentation for the package and its dependencies with
-the `make doc` command. The documentation is generated in the `build/docs` directory.
-[ApiGen](http://apigen.org/) is required. The directory can later be cleaned with
-the `make clean` command.
+## Contributing
 
-
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 
 
@@ -594,16 +588,13 @@ the `make clean` command.
 To ensure tests are running with the minimum requirements, it is advised to run them inside the
 provided container. The container is started with the `make test-container` command. Once inside the
 container, `make test` and `make test-coverage` can be used. Xdebug is available in the container
-and ready for debugging, it uses the servername `accessor-tests` and the absolute path `/app`.
-
-
+and ready for debugging, it uses the servername `icanboogie-accessor` and the absolute path `/app`.
 
 
 
 ## License
 
-**icanboogie/accessor** is licensed under the New BSD License. See the [LICENSE](LICENSE) file for details.
-
+**icanboogie/accessor** is released under the [BSD-3-Clause](LICENSE).
 
 
 

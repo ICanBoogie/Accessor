@@ -19,12 +19,12 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class ReadOnlyVirtualProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $another_property;
+    public $another_property;
 
-	protected function get_property()
-	{
-		return $this->another_property;
-	}
+    protected function get_property()
+    {
+        return $this->another_property;
+    }
 }

@@ -19,24 +19,23 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class TypeControl implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	private $datetime;
+    private $datetime;
 
-	protected function set_datetime($datetime)
-	{
-		$this->datetime;
-	}
+    protected function set_datetime($datetime)
+    {
+        $this->datetime;
+    }
 
-	protected function get_datetime()
-	{
-		$datetime = $this->datetime;
+    protected function get_datetime()
+    {
+        $datetime = $this->datetime;
 
-		if (!($datetime instanceof \DateTime))
-		{
-			$this->datetime = $datetime = new \DateTime($datetime);
-		}
+        if (!($datetime instanceof \DateTime)) {
+            $this->datetime = $datetime = new \DateTime($datetime);
+        }
 
-		return $datetime;
-	}
+        return $datetime;
+    }
 }

@@ -19,17 +19,17 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class WriteOnlyProtectedProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	protected $property;
+    protected $property;
 
-	protected function set_property($value)
-	{
-		$this->property = $value;
-	}
+    protected function set_property($value)
+    {
+        $this->property = $value;
+    }
 
-	public function check()
-	{
-		return $this->property;
-	}
+    public function check()
+    {
+        return $this->property;
+    }
 }

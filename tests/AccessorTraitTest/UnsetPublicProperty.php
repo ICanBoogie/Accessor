@@ -16,7 +16,7 @@ use ICanBoogie\Accessor\HasAccessor;
 
 class UnsetPublicProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	public $property;
+    public $property;
 }

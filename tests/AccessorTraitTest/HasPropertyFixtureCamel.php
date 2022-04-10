@@ -15,40 +15,36 @@ use ICanBoogie\Accessor\AccessorCamelTrait;
 
 class HasPropertyFixtureCamel
 {
-	use AccessorCamelTrait;
+    use AccessorCamelTrait;
 
-	public $public;
-	protected $protected;
-	private $private;
+    public $public;
+    protected $protected;
+    private $private;
 
-	public $unsetPublic;
-	protected $unsetProtected;
-	private $unsetPrivate;
+    public $unsetPublic;
+    protected $unsetProtected;
+    private $unsetPrivate;
 
-	public function __construct()
-	{
-		unset($this->unsetPublic);
-		unset($this->unsetProtected);
-		unset($this->unsetPrivate);
-	}
+    public function __construct()
+    {
+        unset($this->unsetPublic);
+        unset($this->unsetProtected);
+        unset($this->unsetPrivate);
+    }
 
-	protected function getReadonly()
-	{
+    protected function getReadonly()
+    {
+    }
 
-	}
+    protected function lazyGetLazyReadonly()
+    {
+    }
 
-	protected function lazyGetLazyReadonly()
-	{
+    protected function setWriteonly()
+    {
+    }
 
-	}
-
-	protected function setWriteonly()
-	{
-
-	}
-
-	protected function lazySetLazyWriteonly()
-	{
-
-	}
+    protected function lazySetLazyWriteonly()
+    {
+    }
 }

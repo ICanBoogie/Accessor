@@ -19,10 +19,10 @@ use ICanBoogie\Accessor\HasAccessor;
  */
 class LazyProperty implements HasAccessor
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
-	protected function lazy_get_property()
-	{
-		return "success";
-	}
+    protected function lazy_get_property()
+    {
+        return "success";
+    }
 }

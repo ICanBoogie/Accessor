@@ -25,69 +25,75 @@ use function get_object_vars;
  */
 trait SerializableTrait
 {
-	/**
-	 * @throws ReflectionException
-	 */
-	public function __sleep()
-	{
-		return $this->accessor_sleep();
-	}
+    /**
+     * @throws ReflectionException
+     */
+    public function __sleep()
+    {
+        return $this->accessor_sleep();
+    }
 
-	public function __wakeup()
-	{
-		$this->accessor_wakeup();
-	}
+    public function __wakeup()
+    {
+        $this->accessor_wakeup();
+    }
 
-	/**
-	 * The method returns an array of key/key pairs.
-	 *
-	 * Properties for which a lazy getter is defined are discarded. For instance, if the property
-	 * `next` is defined and the class of the instance defines the getter `lazy_get_next()`, the
-	 * property is discarded.
-	 *
-	 * Note that façade properties are also included.
-	 *
-	 * @throws ReflectionException
-	 */
-	private function accessor_sleep(): array
-	{
-		$properties = array_keys(get_object_vars($this));
+    /**
+     * The method returns an array of key/key pairs.
+     *
+     * Properties for which a lazy getter is defined are discarded. For instance, if the property
+     * `next` is defined and the class of the instance defines the getter `lazy_get_next()`, the
+     * property is discarded.
+     *
+     * Note that façade properties are also included.
+     *
+     * @throws ReflectionException
+     */
+    private function accessor_sleep(): array
+    {
+        $properties = array_keys(get_object_vars($this));
 
-		if ($properties)
-		{
-			$properties = array_combine($properties, $properties);
+        if ($properties) {
+            $properties = array_combine($properties, $properties);
 
-			foreach ($properties as $property)
-			{
-				if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY)))
-				{
-					unset($properties[ $property ]);
-				}
-			}
-		}
+            foreach ($properties as $property) {
+                if (
+                    $this->has_method(static::accessor_format(
+                        $property,
+                        HasAccessor::ACCESSOR_TYPE_GETTER,
+                        HasAccessor::ACCESSOR_IS_LAZY
+                    ))
+                ) {
+                    unset($properties[$property]);
+                }
+            }
+        }
 
-		foreach (AccessorReflection::resolve_facade_properties($this) as $name => $property)
-		{
-			$properties[ $name ] = "\x00" . $property->class . "\x00" . $name;
-		}
+        foreach (AccessorReflection::resolve_facade_properties($this) as $name => $property) {
+            $properties[$name] = "\x00" . $property->class . "\x00" . $name;
+        }
 
-		return $properties;
-	}
+        return $properties;
+    }
 
-	/**
-	 * Unsets null properties for which a lazy getter is defined so that it is called when
-	 * the property is accessed.
-	 */
-	private function accessor_wakeup(): void
-	{
-		$properties = get_object_vars($this);
+    /**
+     * Unsets null properties for which a lazy getter is defined so that it is called when
+     * the property is accessed.
+     */
+    private function accessor_wakeup(): void
+    {
+        $properties = get_object_vars($this);
 
-		foreach ($properties as $property => $value)
-		{
-			if ($this->has_method(static::accessor_format($property, HasAccessor::ACCESSOR_TYPE_GETTER, HasAccessor::ACCESSOR_IS_LAZY)))
-			{
-				unset($this->$property);
-			}
-		}
-	}
+        foreach ($properties as $property => $value) {
+            if (
+                $this->has_method(static::accessor_format(
+                    $property,
+                    HasAccessor::ACCESSOR_TYPE_GETTER,
+                    HasAccessor::ACCESSOR_IS_LAZY
+                ))
+            ) {
+                unset($this->$property);
+            }
+        }
+    }
 }
