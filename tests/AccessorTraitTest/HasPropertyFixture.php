@@ -13,6 +13,7 @@ namespace ICanBoogie\Accessor\AccessorTraitTest;
 
 use ICanBoogie\Accessor\AccessorTrait;
 
+#[\AllowDynamicProperties]
 class HasPropertyFixture
 {
     use AccessorTrait;

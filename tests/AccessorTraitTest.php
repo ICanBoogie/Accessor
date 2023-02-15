@@ -32,7 +32,7 @@ use ICanBoogie\PropertyNotReadable;
 use ICanBoogie\PropertyNotWritable;
 use PHPUnit\Framework\TestCase;
 
-class AccessorTraitTest extends TestCase
+final class AccessorTraitTest extends TestCase
 {
     /*
      * Undefined property
@@ -183,7 +183,7 @@ class AccessorTraitTest extends TestCase
     public function test_type_control(): void
     {
         $a = new TypeControl();
-        $this->assertInstanceOf(\DateTime::class, $a->datetime);
+        $this->assertNull($a->datetime);
         $a->datetime = 'now';
         $this->assertInstanceOf(\DateTime::class, $a->datetime);
     }

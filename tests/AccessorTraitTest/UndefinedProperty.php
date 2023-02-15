@@ -14,6 +14,7 @@ namespace ICanBoogie\Accessor\AccessorTraitTest;
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\Accessor\HasAccessor;
 
+#[\AllowDynamicProperties]
 class UndefinedProperty implements HasAccessor
 {
     use AccessorTrait;

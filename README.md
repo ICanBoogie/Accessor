@@ -1,6 +1,6 @@
 # Accessor
 
-[![Packagist](https://img.shields.io/packagist/v/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
+[![Release](https://img.shields.io/packagist/v/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/Accessor.svg)](https://scrutinizer-ci.com/g/ICanBoogie/Accessor)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/Accessor.svg)](https://coveralls.io/r/ICanBoogie/Accessor)
 [![Downloads](https://img.shields.io/packagist/dt/icanboogie/accessor.svg)](https://packagist.org/packages/icanboogie/accessor)
@@ -556,7 +556,7 @@ echo $a->camelProperty;   // value
 
 ## Continuous Integration
 
-The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/Inflector/actions).
+The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/Accessor/actions).
 
 [![Tests](https://github.com/ICanBoogie/Accessor/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/Accessor/actions?query=workflow%3Atest)
 [![Static Analysis](https://github.com/ICanBoogie/Accessor/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/Accessor/actions?query=workflow%3Astatic-analysis)
@@ -566,29 +566,14 @@ The project is continuously tested by [GitHub actions](https://github.com/ICanBo
 
 ## Code of Conduct
 
-This project adheres to a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project and its
-community, you are expected to uphold this code.
+This project adheres to a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in
+this project and its community, you are expected to uphold this code.
 
 
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-
-
-## Testing
-
-The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and
-[Composer](http://getcomposer.org/) need to be globally available to run the suite.
-The command installs dependencies as required. The `make test-coverage` command runs test suite and
-also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with
-the `make clean` command.
-
-To ensure tests are running with the minimum requirements, it is advised to run them inside the
-provided container. The container is started with the `make test-container` command. Once inside the
-container, `make test` and `make test-coverage` can be used. Xdebug is available in the container
-and ready for debugging, it uses the servername `icanboogie-accessor` and the absolute path `/app`.
 
 
 

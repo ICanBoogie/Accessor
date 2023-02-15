@@ -17,6 +17,7 @@ use ICanBoogie\Accessor\HasAccessor;
 /**
  * @property mixed $property
  */
+#[\AllowDynamicProperties]
 class LazyProperty implements HasAccessor
 {
     use AccessorTrait;

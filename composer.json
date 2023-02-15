@@ -1,45 +1,48 @@
 {
-	"name": "icanboogie/accessor",
-	"type": "library",
-	"description": "Implements getters/setters, read-only/write-only properties, volatile defaults, type control…",
-	"keywords": [
-		"getter",
-		"setter",
-		"facade"
-	],
-	"homepage": "https://icanboogie.org/",
-	"license": "BSD-3-Clause",
-	"authors": [
-		{
-			"name": "Olivier Laviale",
-			"email": "olivier.laviale@gmail.com",
-			"homepage": "https://olvlvl.com/",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/ICanBoogie/Accessor/issues",
-		"source": "https://github.com/ICanBoogie/Accessor"
-	},
-	"require": {
-		"php": ">=7.2.5",
-		"icanboogie/common": "^1.3.2|^2.0|^6.0"
-	},
-	"require-dev": {
-		"phpstan/phpstan": "^0.12.63",
-		"phpunit/phpunit": "^8.5"
-	},
-	"autoload": {
-		"psr-4": {
-			"ICanBoogie\\Accessor\\": "lib"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"ICanBoogie\\Accessor\\": "tests"
-		}
-	},
-	"config": {
-		"sort-packages": true
-	}
+    "name": "icanboogie/accessor",
+    "type": "library",
+    "description": "Implements getters/setters, read-only/write-only properties, volatile defaults, type control…",
+    "keywords": [
+        "getter",
+        "setter",
+        "facade"
+    ],
+    "homepage": "https://icanboogie.org/",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Olivier Laviale",
+            "email": "olivier.laviale@gmail.com",
+            "homepage": "https://olvlvl.com/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ICanBoogie/Accessor/issues",
+        "source": "https://github.com/ICanBoogie/Accessor"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "prefer-dist": true,
+    "require": {
+        "php": ">=7.2.5",
+        "icanboogie/common": "^1.3.2|^2.0|^6.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.9.17",
+        "phpunit/phpunit": "^8.5.32"
+    },
+    "autoload": {
+        "psr-4": {
+            "ICanBoogie\\Accessor\\": "lib"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ICanBoogie\\Accessor\\": "tests"
+        }
+    }
 }

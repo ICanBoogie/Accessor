@@ -11,31 +11,54 @@
 
 namespace ICanBoogie\Accessor\AccessorTraitTest;
 
+use DateTimeInterface;
+use Exception;
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\Accessor\HasAccessor;
 
 /**
- * @property \DateTime $datetime
+ * @property DateTimeInterface|string|null $datetime
  */
-class TypeControl implements HasAccessor
+final class TypeControl implements HasAccessor
 {
+    /**
+     * @uses get_datetime
+     * @uses set_datetime
+     */
     use AccessorTrait;
 
+    /**
+     * @var DateTimeInterface|string|null
+     */
     private $datetime;
 
-    protected function set_datetime($datetime)
-    {
-        $this->datetime;
-    }
-
-    protected function get_datetime()
+    /**
+     * @throws Exception
+     *
+     * @return DateTimeInterface|null
+     */
+    private function get_datetime()
     {
         $datetime = $this->datetime;
 
-        if (!($datetime instanceof \DateTime)) {
+        if (!$datetime) {
+            return  null;
+        }
+
+        if (!$datetime instanceof DateTimeInterface) {
             $this->datetime = $datetime = new \DateTime($datetime);
         }
 
         return $datetime;
+    }
+
+    /**
+     * @param mixed $datetime
+     *
+     * @return void
+     */
+    private function set_datetime($datetime)
+    {
+        $this->datetime = $datetime;
     }
 }

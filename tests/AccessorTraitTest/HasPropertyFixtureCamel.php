@@ -13,6 +13,7 @@ namespace ICanBoogie\Accessor\AccessorTraitTest;
 
 use ICanBoogie\Accessor\AccessorCamelTrait;
 
+#[\AllowDynamicProperties]
 class HasPropertyFixtureCamel
 {
     use AccessorCamelTrait;
