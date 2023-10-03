@@ -1,14 +1,11 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}-cli-buster
 
-RUN docker-php-ext-enable opcache
-
-RUN if [ "$PHP_VERSION" -ge "8.0" ]; then apt-get update && \
+RUN apt-get update && \
 	apt-get install -y autoconf pkg-config && \
 	pecl channel-update pecl.php.net && \
 	pecl install xdebug && \
-	docker-php-ext-enable xdebug \
-    ;fi
+	docker-php-ext-enable opcache xdebug
 
 RUN echo '\
 xdebug.client_host=host.docker.internal\n\

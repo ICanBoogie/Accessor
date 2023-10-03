@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Accessor\AccessorReflectionTest;
+namespace Test\ICanBoogie\Accessor\AccessorReflectionTest;
 
 use ICanBoogie\Accessor\AccessorTrait;
 

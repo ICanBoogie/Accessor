@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Accessor;
+namespace Test\ICanBoogie\Accessor;
 
-use ICanBoogie\Accessor\SerializableTraitTest\DateTimeProperty;
-use ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedProperties;
-use ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedPropertiesCamel;
-use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetter;
-use ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetterAndForcedExport;
-use ICanBoogie\Accessor\SerializableTraitTest\VirtualProperty;
+use Test\ICanBoogie\Accessor\SerializableTraitTest\DateTimeProperty;
+use Test\ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedProperties;
+use Test\ICanBoogie\Accessor\SerializableTraitTest\InheritedMixedPropertiesCamel;
+use Test\ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetter;
+use Test\ICanBoogie\Accessor\SerializableTraitTest\PropertyWithGetterAndForcedExport;
+use Test\ICanBoogie\Accessor\SerializableTraitTest\VirtualProperty;
 use PHPUnit\Framework\TestCase;
 
 use const DATE_RFC3339_EXTENDED;

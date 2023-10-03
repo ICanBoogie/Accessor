@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Accessor;
 
+use ICanBoogie\PropertyError;
 use ICanBoogie\PropertyNotDefined;
 use ICanBoogie\PropertyNotReadable;
 use ICanBoogie\PropertyNotWritable;
@@ -174,9 +175,9 @@ trait AccessorTrait
             $reflexion_property = $reflexion_class->getProperty($property);
 
             if (!$reflexion_property->isPublic()) {
-                throw new PropertyNotReadable([$property, $this]);
+                throw new PropertyNotReadable(property: $property, container: $this);
             }
-        } catch (ReflectionException $e) {
+        } catch (ReflectionException) {
             #
             # An exception may occur if the property is not defined, we don't care about that.
             #
@@ -185,14 +186,16 @@ trait AccessorTrait
         $this->assert_no_accessor(
             $property,
             HasAccessor::ACCESSOR_TYPE_SETTER,
-            PropertyNotReadable::class
+            fn() => new PropertyNotReadable(property: $property, container: $this)
         );
 
         $properties = array_keys(get_object_vars($this));
 
         if ($properties) {
             throw new PropertyNotDefined(
-                sprintf(
+                property: $property,
+                container: $this,
+                message: sprintf(
                     'Unknown or inaccessible property "%s"'
                     . ' for object of class "%s" (available properties: %s).',
                     $property,
@@ -202,7 +205,7 @@ trait AccessorTrait
             );
         }
 
-        throw new PropertyNotDefined([$property, $this]);
+        throw new PropertyNotDefined(property: $property, container: $this);
     }
 
     /**
@@ -227,7 +230,7 @@ trait AccessorTrait
             $property_reflection = $reflection->getProperty($property);
 
             if (!$property_reflection->isPublic()) {
-                throw new PropertyNotWritable([$property, $this]);
+                throw new PropertyNotWritable(property: $property, container: $this);
             }
 
             return;
@@ -236,20 +239,21 @@ trait AccessorTrait
         $this->assert_no_accessor(
             $property,
             HasAccessor::ACCESSOR_TYPE_GETTER,
-            PropertyNotWritable::class
+            fn() => new PropertyNotWritable(property: $property, container: $this)
         );
     }
 
     /**
      * Asserts that an accessor is not implemented.
      *
-     * @param string $type One of {@link HasAccessor::ACCESSOR_TYPE_GETTER}
-     * and {@link HasAccessor::ACCESSOR_TYPE_SETTER}.
+     * @param string $type
+     *     One of {@link HasAccessor::ACCESSOR_TYPE_GETTER} and {@link HasAccessor::ACCESSOR_TYPE_SETTER}.
+     * @param callable():PropertyError $exception_factory
      */
-    private function assert_no_accessor(string $property, string $type, string $exception_class): void
+    private function assert_no_accessor(string $property, string $type, callable $exception_factory): void
     {
         if ($this->has_method(static::accessor_format($property, $type))) {
-            throw new $exception_class([$property, $this]);
+            throw $exception_factory();
         }
     }
 }

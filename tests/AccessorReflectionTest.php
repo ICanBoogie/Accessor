@@ -9,11 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Accessor;
+namespace Test\ICanBoogie\Accessor;
 
-use ICanBoogie\Accessor\AccessorReflectionTest\FacadeProperty;
-use ICanBoogie\Accessor\AccessorReflectionTest\PrivateProperty;
+use ICanBoogie\Accessor\AccessorReflection;
 use PHPUnit\Framework\TestCase;
+use Test\ICanBoogie\Accessor\AccessorReflectionTest\FacadeProperty;
+use Test\ICanBoogie\Accessor\AccessorReflectionTest\PrivateProperty;
 
 class AccessorReflectionTest extends TestCase
 {

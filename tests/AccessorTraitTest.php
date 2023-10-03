@@ -9,24 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Accessor;
+namespace Test\ICanBoogie\Accessor;
 
-use ICanBoogie\Accessor\AccessorTraitTest\DefaultProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\HasPropertyFixture;
-use ICanBoogie\Accessor\AccessorTraitTest\HasPropertyFixtureCamel;
-use ICanBoogie\Accessor\AccessorTraitTest\LazyProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\LazySetProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\PropertyList;
-use ICanBoogie\Accessor\AccessorTraitTest\ReadOnlyPrivateProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\ReadOnlyProtectedProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\ReadOnlyVirtualProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\TypeControl;
-use ICanBoogie\Accessor\AccessorTraitTest\UndefinedProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\UnsetPublicProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\VirtualProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyPrivateProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyProtectedProperty;
-use ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyVirtualProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\DefaultProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\HasPropertyFixture;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\HasPropertyFixtureCamel;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\LazyProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\LazySetProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\PropertyList;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\ReadOnlyPrivateProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\ReadOnlyProtectedProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\ReadOnlyVirtualProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\TypeControl;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\UndefinedProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\UnsetPublicProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\VirtualProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyPrivateProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyProtectedProperty;
+use Test\ICanBoogie\Accessor\AccessorTraitTest\WriteOnlyVirtualProperty;
 use ICanBoogie\PropertyNotDefined;
 use ICanBoogie\PropertyNotReadable;
 use ICanBoogie\PropertyNotWritable;

@@ -28,22 +28,22 @@ final class AccessorReflection
     /**
      * @var array<class-string, ReflectionProperty[]>
      */
-    private static $private_properties_cache = [];
+    private static array $private_properties_cache = [];
 
     /**
      * @var array<class-string, ReflectionProperty[]>
      */
-    private static $facade_properties_cache = [];
+    private static array $facade_properties_cache = [];
 
     /**
-     * @param class-string|object $reference
+     * @param object|class-string $reference
      *
      * @return class-string
      */
-    private static function resolve_reference($reference): string
+    private static function resolve_reference(object|string $reference): string
     {
         if (is_object($reference)) {
-            return get_class($reference);
+            return $reference::class;
         }
 
         return $reference;
@@ -53,13 +53,13 @@ final class AccessorReflection
      * Returns the private properties defined by the reference, this includes the private
      * properties defined by the whole class inheritance.
      *
-     * @param class-string|object $reference Class name or instance.
+     * @param object|class-string $reference Class name or instance.
      *
      * @return ReflectionProperty[]
      *
      * @throws ReflectionException
      */
-    public static function resolve_private_properties($reference): array
+    public static function resolve_private_properties(object|string $reference): array
     {
         $reference = self::resolve_reference($reference);
         $cached = &self::$private_properties_cache[$reference];
@@ -91,7 +91,7 @@ final class AccessorReflection
      *
      * @throws ReflectionException
      */
-    public static function resolve_facade_properties($reference): array
+    public static function resolve_facade_properties(object|string $reference): array
     {
         $reference = self::resolve_reference($reference);
         $facade_properties = &self::$facade_properties_cache[$reference];
@@ -101,13 +101,14 @@ final class AccessorReflection
         }
 
         $facade_properties = [];
+        $format = [ $reference, 'accessor_format' ](...); // @phpstan-ignore-line
 
         foreach (self::resolve_private_properties($reference) as $property) {
             $name = $property->name;
 
             if (
-                !method_exists($reference, $reference::accessor_format($name, HasAccessor::ACCESSOR_TYPE_GETTER))
-                || !method_exists($reference, $reference::accessor_format($name, HasAccessor::ACCESSOR_TYPE_SETTER))
+                !method_exists($reference, $format($name, HasAccessor::ACCESSOR_TYPE_GETTER))
+                || !method_exists($reference, $format($name, HasAccessor::ACCESSOR_TYPE_SETTER))
             ) {
                 continue;
             }

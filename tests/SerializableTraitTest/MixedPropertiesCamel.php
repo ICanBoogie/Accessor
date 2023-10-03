@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Accessor\SerializableTraitTest;
+namespace Test\ICanBoogie\Accessor\SerializableTraitTest;
 
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\Accessor\AccessorCamelTrait;
