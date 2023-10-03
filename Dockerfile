@@ -30,4 +30,4 @@ RUN apt-get update && \
 	mv composer.phar /usr/local/bin/composer && \
 	echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"\n' >> /root/.bashrc
 
-RUN composer global require squizlabs/php_codesniffer
+RUN composer global require -n squizlabs/php_codesniffer
